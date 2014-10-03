@@ -173,7 +173,8 @@ MAIN: {
         },
 
         TEST_REQUIRES => {
-            'Cwd' => '0'
+            'Config' => '0',
+            'Cwd'    => '0'
         },
 
         PREREQ_PM => {

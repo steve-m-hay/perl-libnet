@@ -5,6 +5,7 @@ use 5.008001;
 use strict;
 use warnings;
 
+use Config;
 use File::Temp 'tempfile';
 use Net::SMTP;
 use Test::More;
@@ -16,7 +17,10 @@ my $parent = 0;
 plan skip_all => "no SSL support found in Net::SMTP" if ! Net::SMTP->can_ssl;
 
 plan skip_all => "fork not supported on this platform"
-  if grep { $^O =~m{$_} } qw(MacOS VOS vmesa riscos amigaos);
+  unless $Config::Config{d_fork} || $Config::Config{d_pseudofork} ||
+    (($^O eq 'MSWin32' || $^O eq 'NetWare') and
+     $Config::Config{useithreads} and
+     $Config::Config{ccflags} =~ /-DPERL_IMPLICIT_SYS/);
 
 plan skip_all => "incomplete or to old version of IO::Socket::SSL" if ! eval {
   require IO::Socket::SSL
