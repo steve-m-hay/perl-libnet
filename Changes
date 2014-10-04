@@ -1,5 +1,7 @@
 libnet 1.28  -- TODO
 
+  * Don't use the ALLO command on FTP servers that don't support it.  [Resolves
+    CPAN RT#95717]
   * Stop Makefile.PL from requiring interactive configuration when running via
     cpan, cpanp or cpanm: just accept all defaults in these cases, as when
     running non-interactively.  [Resolves CPAN RT#48966]

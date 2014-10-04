@@ -490,7 +490,7 @@ sub alloc {
     unless (defined $size);
 
   return
-    unless ($ftp->_ALLO($size, @_));
+    unless ($ftp->supported("ALLO") and $ftp->_ALLO($size, @_));
 
   ${*$ftp}{'net_ftp_allo'} = join(" ", $size, @_);
 
@@ -1148,7 +1148,9 @@ sub _data_cmd {
   return
     unless $ok;
 
-  if ($cmd =~ /(STOR|APPE|STOU)/ and exists ${*$ftp}{net_ftp_allo}) {
+  if ($cmd =~ /(STOR|APPE|STOU)/ and exists ${*$ftp}{net_ftp_allo} and
+      $ftp->supported("ALLO"))
+  {
     $ftp->_ALLO(delete ${*$ftp}{net_ftp_allo})
       or return;
   }
