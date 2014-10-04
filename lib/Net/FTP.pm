@@ -956,7 +956,7 @@ sub supported {
     unless $ftp->_HELP($cmd);
 
   my $text = $ftp->message;
-  if ($text =~ /following\s+commands/i) {
+  if ($text =~ /following.+commands/i) {
     $text =~ s/^.*\n//;
     while ($text =~ /(\*?)(\w+)(\*?)/sg) {
       $hash->{"\U$2"} = !length("$1$3");
