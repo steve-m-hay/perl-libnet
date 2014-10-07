@@ -1,5 +1,7 @@
 libnet 1.28  -- TODO
 
+  * Improve code()/message() initialization and error handling in Net::Cmd
+    [Tom Metro; resolves CPAN RT#14875]
   * Don't use the ALLO command on FTP servers that don't support it.  [Resolves
     CPAN RT#95717]
   * Stop Makefile.PL from requiring interactive configuration when running via
