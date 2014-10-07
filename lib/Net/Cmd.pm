@@ -195,7 +195,7 @@ sub set_status {
   my $cmd = shift;
   my ($code, $resp) = @_;
 
-  $resp = [$resp]
+  $resp = defined $resp ? [$resp] : []
     unless ref($resp);
 
   (${*$cmd}{'net_cmd_code'}, ${*$cmd}{'net_cmd_resp'}) = ($code, $resp);
