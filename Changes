@@ -1,3 +1,7 @@
+libnet 1.30  -- TODO
+
+  * TODO
+
 libnet 1.29  -- Wed Oct 08 2014
 
   * Fix PAUSE indexing problem. Net::POP3::_SSLified and Net::SMTP::_SSLified
