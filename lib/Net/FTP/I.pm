@@ -13,7 +13,7 @@ use Carp;
 use Net::FTP::dataconn;
 
 our @ISA     = qw(Net::FTP::dataconn);
-our $VERSION = "1.13";
+our $VERSION = "3.00";
 
 our $buf;
 

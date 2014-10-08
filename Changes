@@ -1,6 +1,7 @@
-libnet 1.31  -- TODO
+libnet 3.00  -- TODO
 
-  * TODO
+  * Synchronize all $VERSIONs to the distribution's version number, bumping that
+    to 3.00 so that no $VERSIONs end up going backwards.
 
 libnet 1.30  -- Wed Oct 08 2014
 
