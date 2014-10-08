@@ -19,7 +19,7 @@ use IO::Socket;
 use Net::Cmd;
 use Net::Config;
 
-our $VERSION = "2.33";
+our $VERSION = "2.34";
 
 # Code for detecting if we can use SSL
 my $ssl_class = eval {
@@ -85,7 +85,7 @@ sub new {
 
   ${*$obj}{'net_pop3_arg'} = \%arg;
   if ($arg{SSL}) {
-    Net::POP3::SSL->start_SSL($obj,
+    Net::POP3::_SSL->start_SSL($obj,
       SSL_verifycn_name => $host,%arg
     ) or return;
   }
@@ -136,7 +136,7 @@ sub starttls {
   my $self = shift;
   $ssl_class or die $nossl_warn;
   $self->_STLS or return;
-  Net::POP3::SSL->start_SSL($self,
+  Net::POP3::_SSL->start_SSL($self,
     %{ ${*$self}{'net_pop3_arg'} }, # (ssl) args given in new
     @_   # more (ssl) args
   ) or return;
@@ -570,7 +570,7 @@ sub banner {
 }
 
 {
-  package Net::POP3::SSL;
+  package Net::POP3::_SSL;
   our @ISA = ( $ssl_class ? ($ssl_class):(), 'Net::POP3' );
   sub starttls { die "POP3 connection is already in SSL mode" }
   sub start_SSL {

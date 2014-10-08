@@ -24,7 +24,7 @@ use Net::Config;
 use Socket 1.3;
 use Time::Local;
 
-our $VERSION = '2.80';
+our $VERSION = '2.81';
 
 our $IOCLASS;
 BEGIN {
@@ -101,7 +101,7 @@ sub new {
       SSL_verifycn_scheme => 'ftp',
       SSL_verifycn_name => $hostname,
       # reuse SSL session of control connection in data connections
-      SSL_session_cache => Net::FTP::SSL_SingleSessionCache->new,
+      SSL_session_cache => Net::FTP::_SSL_SingleSessionCache->new,
     );
     # user defined SSL arg
     $tlsargs{$_} = $arg{$_} for(grep { m{^SSL_} } keys %arg);
@@ -1377,7 +1377,7 @@ sub _REIN { shift->unsupported(@_) }
 {
   # Session Cache with single entry
   # used to make sure that we reuse same session for control and data channels
-  package Net::FTP::SSL_SingleSessionCache;
+  package Net::FTP::_SSL_SingleSessionCache;
   sub new { my $x; return bless \$x,shift }
   sub add_session {
     my ($cache,$key,$session) = @_;

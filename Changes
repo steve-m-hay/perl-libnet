@@ -1,6 +1,7 @@
 libnet 1.30  -- TODO
 
-  * TODO
+  * Sigh. Fix PAUSE indexing problem again. Net::SMTP::SSL is already used by
+    Net-SMTP-SSL.
 
 libnet 1.29  -- Wed Oct 08 2014
 
