@@ -20,7 +20,7 @@ use Net::Cmd;
 use Net::Config;
 use Socket 1.3;
 
-our $VERSION = "2.35";
+our $VERSION = "2.36";
 
 # Code for detecting if we can use SSL
 my $ssl_class = eval {
@@ -87,7 +87,7 @@ sub new {
 
   ${*$obj}{'net_smtp_arg'} = \%arg;
   if ($arg{SSL}) {
-    Net::SMTP::_SSLified->start_SSL($obj,SSL_verifycn_name => $host,%arg)
+    Net::SMTP::SSL->start_SSL($obj,SSL_verifycn_name => $host,%arg)
       or return;
   }
 
@@ -254,7 +254,7 @@ sub starttls {
   my $self = shift;
   $ssl_class or die $nossl_warn;
   $self->_STARTTLS or return;
-  Net::SMTP::_SSLified->start_SSL($self,
+  Net::SMTP::SSL->start_SSL($self,
     %{ ${*$self}{'net_smtp_arg'} }, # (ssl) args given in new
     @_   # more (ssl) args
   ) or return;
@@ -603,7 +603,7 @@ sub _STARTTLS { shift->command("STARTTLS")->response() == CMD_OK }
 
 
 {
-  package Net::SMTP::_SSLified;
+  package Net::SMTP::SSL;
   our @ISA = ( $ssl_class ? ($ssl_class):(), 'Net::SMTP' );
   sub starttls { die "SMTP connection is already in SSL mode" }
   sub start_SSL {
