@@ -1,4 +1,4 @@
-libnet 3.01  -- TODO
+libnet 3.01  -- Thu Oct 09 2014
 
   * Require IO::Socket::SSL >= 1.999 to protect against a bad version (0.30) of
     IO::Socket::IP and hopefully fix another bunch of CPAN Testers failures.
