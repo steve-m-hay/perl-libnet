@@ -1,5 +1,7 @@
 libnet 3.00  -- TODO
 
+  * Skip Perl Critic, Pod and Pod Coverage tests unless AUTHOR_TESTING.
+    [Resolves CPAN RT#99399]
   * Synchronize all $VERSIONs to the distribution's version number, bumping that
     to 3.00 so that no $VERSIONs end up going backwards.
 

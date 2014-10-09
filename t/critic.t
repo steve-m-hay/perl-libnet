@@ -27,6 +27,8 @@ use Test::More;
 #===============================================================================
 
 MAIN: {
+    plan skip_all => 'Author testing only' unless $ENV{AUTHOR_TESTING};
+
     my $ok = eval {
         require Test::Perl::Critic;
         Test::Perl::Critic->import(-profile => '');
