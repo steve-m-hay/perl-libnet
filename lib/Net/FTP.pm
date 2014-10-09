@@ -32,11 +32,11 @@ BEGIN {
   my $ssl_class = eval {
     require IO::Socket::SSL;
     # first version with default CA on most platforms
-    IO::Socket::SSL->VERSION(1.994);
+    IO::Socket::SSL->VERSION(1.999);
   } && 'IO::Socket::SSL';
 
   my $nossl_warn = !$ssl_class &&
-    'To use SSL please install IO::Socket::SSL with version>=1.994';
+    'To use SSL please install IO::Socket::SSL with version>=1.999';
 
   # Code for detecting if we can use IPv6
   my $inet6_class = eval {

@@ -107,7 +107,7 @@ MAIN: {
                     prereqs => {
                         runtime => {
                             requires => {
-                                'IO::Socket::SSL' => '1.994'
+                                'IO::Socket::SSL' => '1.999'
                             }
                         }
                     }
