@@ -24,7 +24,7 @@ plan skip_all => "fork not supported on this platform"
 
 plan skip_all => "incomplete or to old version of IO::Socket::SSL" if ! eval {
   require IO::Socket::SSL
-    && IO::Socket::SSL->VERSION(1.968)
+    && IO::Socket::SSL->VERSION(1.999)
     && require IO::Socket::SSL::Utils
     && defined &IO::Socket::SSL::Utils::CERT_create;
 };
