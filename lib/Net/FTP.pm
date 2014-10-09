@@ -107,7 +107,7 @@ sub new {
     $tlsargs{$_} = $arg{$_} for(grep { m{^SSL_} } keys %arg);
 
   } elsif ($arg{SSL}) {
-    croak("IO::Socket::SSL >= 1.944 needed for SSL support");
+    croak("IO::Socket::SSL >= 1.999 needed for SSL support");
   }
 
   my $ftp = $pkg->SUPER::new(
@@ -287,7 +287,7 @@ sub size {
 
 sub starttls {
   my $ftp = shift;
-  can_ssl() or croak("IO::Socket::SSL >= 1.944 needed for SSL support");
+  can_ssl() or croak("IO::Socket::SSL >= 1.999 needed for SSL support");
   $ftp->is_SSL and croak("called starttls within SSL session");
   $ftp->_AUTH('TLS') == CMD_OK or return;
 
