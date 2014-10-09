@@ -5,6 +5,7 @@ use 5.008001;
 use strict;
 use warnings;
 
+use Config;
 use File::Temp 'tempfile';
 use Net::NNTP;
 use Test::More;
@@ -15,7 +16,10 @@ my $inet6class = Net::NNTP->can_inet6;
 plan skip_all => "no IPv6 support found in Net::NNTP" if ! $inet6class;
 
 plan skip_all => "fork not supported on this platform"
-  if grep { $^O =~m{$_} } qw(MacOS VOS vmesa riscos amigaos);
+  unless $Config::Config{d_fork} || $Config::Config{d_pseudofork} ||
+    (($^O eq 'MSWin32' || $^O eq 'NetWare') and
+     $Config::Config{useithreads} and
+     $Config::Config{ccflags} =~ /-DPERL_IMPLICIT_SYS/);
 
 my $srv = $inet6class->new(
   LocalAddr => '::1',
