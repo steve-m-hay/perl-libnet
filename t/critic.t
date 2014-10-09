@@ -29,7 +29,7 @@ use Test::More;
 MAIN: {
     my $ok = eval {
         require Test::Perl::Critic;
-        Test::Perl::Critic->import();
+        Test::Perl::Critic->import(-profile => '');
         1;
     };
 
