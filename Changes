@@ -1,4 +1,4 @@
-libnet 3.00  -- TODO
+libnet 3.00  -- Thu Oct 09 2014
 
   * Skip Perl Critic, Pod and Pod Coverage tests unless AUTHOR_TESTING.
     [Resolves CPAN RT#99399]
