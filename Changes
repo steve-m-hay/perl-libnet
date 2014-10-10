@@ -1,5 +1,6 @@
 libnet 3.02  -- TODO
 
+  * Don't run interactive prompt() in Makefile.PL when in PERL_CORE.
   * Fix $smtp->auth($sasl) to try the AUTH mechanism (if present) in the
     Authen::SASL object before falling back on other mechanisms. [Resolves
     CPAN RT#99415]
