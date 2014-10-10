@@ -1,6 +1,8 @@
 libnet 3.02  -- TODO
 
-  * TODO
+  * Fix $smtp->auth($sasl) to try the AUTH mechanism (if present) in the
+    Authen::SASL object before falling back on other mechanisms. [Resolves
+    CPAN RT#99415]
 
 libnet 3.01  -- Thu Oct 09 2014
 
