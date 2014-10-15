@@ -43,7 +43,7 @@ sub _hostname {
     }
     if (defined($host) && index($host, '.') > 0) {
       $fqdn = $host;
-      ($host, $domain) = $fqdn =~ /^([^\.]+)\.(.*)$/;
+      ($host, $domain) = $fqdn =~ /^([^.]+)\.(.*)$/;
     }
     return $host;
   }
@@ -55,7 +55,7 @@ sub _hostname {
     $host = $ENV{'MULTINET_HOST_NAME'} if defined($ENV{'MULTINET_HOST_NAME'});
     if (index($host, '.') > 0) {
       $fqdn = $host;
-      ($host, $domain) = $fqdn =~ /^([^\.]+)\.(.*)$/;
+      ($host, $domain) = $fqdn =~ /^([^.]+)\.(.*)$/;
     }
     return $host;
   }
@@ -98,7 +98,7 @@ sub _hostname {
       }
 
       # Apollo pre-SR10
-      || eval { $host = (split(/[:\. ]/, `/com/host`, 6))[0]; }
+      || eval { $host = (split(/[:. ]/, `/com/host`, 6))[0]; }
 
       || eval { $host = ""; };
   }
@@ -198,7 +198,7 @@ sub _hostdomain {
 
         # Extract domain from FQDN
 
-        ($domain = $site) =~ s/\A[^\.]+\.//;
+        ($domain = $site) =~ s/\A[^.]+\.//;
         return $domain;
       }
     }
