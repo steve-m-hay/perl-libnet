@@ -2,6 +2,8 @@ Revision history for Perl distribution libnet
 
 3.03 Development
 
+    - Added optional Changes testing (skipped unless AUTHOR_TESTING).
+
     - Reformatted Changes file as per CPAN::Changes::Spec.
 
 3.02 2014-10-10
