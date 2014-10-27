@@ -94,9 +94,9 @@ SUPPORT
 
 Questions about how to use this library should be directed to the
 comp.lang.perl.modules USENET Newsgroup.  Bug reports and suggestions
-for improvements can be reported on the CPAN request tracker at
+for improvements can be reported on the CPAN Request Tracker at
 
-    http://rt.cpan.org/Dist/Display.html?Name=libnet
+    http://rt.cpan.org/Public/Bug//Report.html?Queue=libnet
 
 Most of the modules in this library have an option to output a debug
 transcript to STDERR. When reporting bugs/problems please, if possible,

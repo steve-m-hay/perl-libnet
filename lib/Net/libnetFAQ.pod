@@ -14,9 +14,9 @@ available on the libnet web page at
 =head2 How to contribute to this document
 
 You may report corrections, additions, and suggestions on the
-CPAN request tracker at
+CPAN Request Tracker at
 
-    http://rt.cpan.org/Dist/Display.html?Name=libnet
+    http://rt.cpan.org/Public/Bug/Report.html?Queue=libnet
 
 =head1 Author and Copyright Information
 
