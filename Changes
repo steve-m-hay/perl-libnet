@@ -2,6 +2,9 @@ Revision history for Perl distribution libnet
 
 3.03 Development
 
+    - Fixed "Argument ... isn't numeric in subroutine entry" warnings when using
+      older versions of Perl.  [CPAN RT#100020]
+
     - Added optional Changes testing (skipped unless AUTHOR_TESTING).
 
     - Reformatted Changes file as per CPAN::Changes::Spec.

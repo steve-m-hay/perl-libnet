@@ -26,6 +26,7 @@ our $VERSION = "3.03";
 my $ssl_class = eval {
   require IO::Socket::SSL;
   # first version with default CA on most platforms
+  no warnings 'numeric';
   IO::Socket::SSL->VERSION(1.999);
 } && 'IO::Socket::SSL';
 
@@ -35,9 +36,11 @@ my $nossl_warn = !$ssl_class &&
 # Code for detecting if we can use IPv6
 my $inet6_class = eval {
   require IO::Socket::IP;
+  no warnings 'numeric';
   IO::Socket::IP->VERSION(0.20);
 } && 'IO::Socket::IP' || eval {
   require IO::Socket::INET6;
+  no warnings 'numeric';
   IO::Socket::INET6->VERSION(2.62);
 } && 'IO::Socket::INET6';
 
