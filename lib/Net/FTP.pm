@@ -227,7 +227,7 @@ sub quot {
   my $ftp = shift;
   my $cmd = shift;
 
-  $ftp->command(uc $cmd, @_);
+  $ftp->command($cmd, @_);
   $ftp->response();
 }
 
