@@ -255,10 +255,8 @@ if( -f $libnet_cfg )
 elsif (eval { require Net::Config }) 
  {
   $have_old = 1;
-  {
   no warnings 'once';
   %oldcfg = %Net::Config::NetConfig;
-  }
  }
 
 map { $cfg{lc $_} = $cfg{$_}; delete $cfg{$_} if /[A-Z]/ } keys %cfg;
