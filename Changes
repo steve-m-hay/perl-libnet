@@ -2,6 +2,9 @@ Revision history for Perl distribution libnet
 
 3.03 Development
 
+    - Fixed a broken port() call in pasv_xfer()/pasv_xfer_unique() in Net::FTP.
+      [Mario Preksavec, PR#8]
+
     - Increased minimum required Socket version from 1.3 to 2.016.  This may be
       required when those modules that can support IPv6 load IO::Socket::IP (on
       some OSes, at least).  It does not appear to be necessary if they load
