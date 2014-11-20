@@ -188,7 +188,7 @@ MAIN: {
             'IO::Select'     => '0',
             'IO::Socket'     => '1.05',
             'POSIX'          => '0',
-            'Socket'         => '1.3',
+            'Socket'         => '2.016',
             'Symbol'         => '0',
             'Time::Local'    => '0',
             'constant'       => '0',

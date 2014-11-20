@@ -21,7 +21,7 @@ use Fcntl qw(O_WRONLY O_RDONLY O_APPEND O_CREAT O_TRUNC);
 use IO::Socket;
 use Net::Cmd;
 use Net::Config;
-use Socket 1.3;
+use Socket;
 use Time::Local;
 
 our $VERSION = '3.03';

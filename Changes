@@ -2,6 +2,13 @@ Revision history for Perl distribution libnet
 
 3.03 Development
 
+    - Increased minimum required Socket version from 1.3 to 2.016.  This may be
+      required when those modules that can support IPv6 load IO::Socket::IP (on
+      some OSes, at least).  It does not appear to be necessary if they load
+      IO::Socket::INET6 or IO::Socket::INET instead, but this is not easy for
+      the end-user to control so it is simpler to always insist on Socket 2.016
+      or higher.  [CPAN RT#100020]
+
     - Fixed "Argument ... isn't numeric in subroutine entry" warnings when using
       older versions of Perl.  [CPAN RT#100020]
 

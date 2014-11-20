@@ -18,7 +18,7 @@ use Carp;
 use IO::Socket;
 use Net::Cmd;
 use Net::Config;
-use Socket 1.3;
+use Socket;
 
 our $VERSION = "3.03";
 
