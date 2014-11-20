@@ -900,6 +900,8 @@ sub _eprt {
       my $p = $listen->sockport;
       $port = join(',',split(m{\.},$listen->sockhost),$p >> 8,$p & 0xff);
     }
+  } elsif (ref($port) eq 'ARRAY') {
+    $port = join(',',split(m{\.},@$port[0]),@$port[1] >> 8,@$port[1] & 0xff);
   }
   my $ok = $cmd eq 'EPRT' ? $ftp->_EPRT($port) : $ftp->_PORT($port);
   ${*$ftp}{net_ftp_port} = $port if $ok;
