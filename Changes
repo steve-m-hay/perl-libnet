@@ -2,6 +2,10 @@ Revision history for Perl distribution libnet
 
 3.03 Development
 
+    - Increased minimum requred IO::Socket::SSL version from 1.999 to 2.007 to
+      fix data connection problems in Net::FTP.  [Steffen Ullrich, CPAN
+      RT#100529]
+
     - Fixed a broken port() call in pasv_xfer()/pasv_xfer_unique() in Net::FTP.
       [Mario Preksavec, PR#8]
 

@@ -33,11 +33,11 @@ BEGIN {
     require IO::Socket::SSL;
     # first version with default CA on most platforms
     no warnings 'numeric';
-    IO::Socket::SSL->VERSION(1.999);
+    IO::Socket::SSL->VERSION(2.007);
   } && 'IO::Socket::SSL';
 
   my $nossl_warn = !$ssl_class &&
-    'To use SSL please install IO::Socket::SSL with version>=1.999';
+    'To use SSL please install IO::Socket::SSL with version>=2.007';
 
   # Code for detecting if we can use IPv6
   my $inet6_class = eval {
@@ -110,7 +110,7 @@ sub new {
     $tlsargs{$_} = $arg{$_} for(grep { m{^SSL_} } keys %arg);
 
   } elsif ($arg{SSL}) {
-    croak("IO::Socket::SSL >= 1.999 needed for SSL support");
+    croak("IO::Socket::SSL >= 2.007 needed for SSL support");
   }
 
   my $ftp = $pkg->SUPER::new(
@@ -290,7 +290,7 @@ sub size {
 
 sub starttls {
   my $ftp = shift;
-  can_ssl() or croak("IO::Socket::SSL >= 1.999 needed for SSL support");
+  can_ssl() or croak("IO::Socket::SSL >= 2.007 needed for SSL support");
   $ftp->is_SSL and croak("called starttls within SSL session");
   $ftp->_AUTH('TLS') == CMD_OK or return;
 
