@@ -1,10 +1,10 @@
 #!perl
 #===============================================================================
 #
-# t/pod.t
+# t/changes.t
 #
 # DESCRIPTION
-#   Test script to check POD.
+#   Test script to check CPAN::Changes conformance.
 #
 # COPYRIGHT
 #   Copyright (C) 2014 Steve Hay.  All rights reserved.
@@ -30,19 +30,16 @@ MAIN: {
     plan skip_all => 'Author testing only' unless $ENV{AUTHOR_TESTING};
 
     my $ok = eval {
-        require Test::Pod;
-        Test::Pod->import();
+        require Test::CPAN::Changes;
+        Test::CPAN::Changes->import();
         1;
     };
 
     if (not $ok) {
-        plan skip_all => 'Test::Pod required to test POD';
-    }
-    elsif ($Test::Pod::VERSION < 1.00) {
-        plan skip_all => 'Test::Pod 1.00 or higher required to test POD';
+        plan skip_all => 'Test::CPAN::Changes required to test Changes';
     }
     else {
-        all_pod_files_ok();
+        changes_ok();
     }
 }
 

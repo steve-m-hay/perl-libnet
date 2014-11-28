@@ -18,26 +18,29 @@ use Carp;
 use IO::Socket;
 use Net::Cmd;
 use Net::Config;
-use Socket 1.3;
+use Socket;
 
-our $VERSION = "3.00";
+our $VERSION = "3.03";
 
 # Code for detecting if we can use SSL
 my $ssl_class = eval {
   require IO::Socket::SSL;
   # first version with default CA on most platforms
-  IO::Socket::SSL->VERSION(1.999);
+  no warnings 'numeric';
+  IO::Socket::SSL->VERSION(2.007);
 } && 'IO::Socket::SSL';
 
 my $nossl_warn = !$ssl_class &&
-  'To use SSL please install IO::Socket::SSL with version>=1.999';
+  'To use SSL please install IO::Socket::SSL with version>=2.007';
 
 # Code for detecting if we can use IPv6
 my $inet6_class = eval {
   require IO::Socket::IP;
+  no warnings 'numeric';
   IO::Socket::IP->VERSION(0.20);
 } && 'IO::Socket::IP' || eval {
   require IO::Socket::INET6;
+  no warnings 'numeric';
   IO::Socket::INET6->VERSION(2.62);
 } && 'IO::Socket::INET6';
 
@@ -193,8 +196,8 @@ sub auth {
         if $self->debug;
       $mechanisms =~ s/\b\Q$failed_mechanism\E\b//;
       last unless $mechanisms =~ /\S/;
+      $sasl->mechanism($mechanisms);
     }
-    $sasl->mechanism($mechanisms);
     
     # We should probably allow the user to pass the host, but I don't
     # currently know and SASL mechanisms that are used by smtp that need it

@@ -25,6 +25,7 @@ lib/Net/POP3.pm                          Post Office Protocol
 lib/Net/SMTP.pm                          Simple Mail Transfer Protocol Client
 lib/Net/Time.pm                          time & nettime protocols
 lib/Net/libnetFAQ.pod
+t/changes.t
 t/config.t
 t/critic.t
 t/datasend.t

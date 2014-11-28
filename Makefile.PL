@@ -47,7 +47,7 @@ MAIN: {
     $prereq_pms{'Convert::EBCDIC'} = '0.06' if $^O eq 'os390';
 
     my $xt = 'n';
-    if (not running_under_cpan()) {
+    if (not running_under_cpan() and not $ENV{PERL_CORE}) {
         $xt = prompt("Should I do external tests?\n" .
                      "These tests will fail if there is no internet" .
                      " connection or if a firewall\n" .
@@ -64,7 +64,7 @@ MAIN: {
         ABSTRACT => 'Collection of network protocol modules',
         AUTHOR   => 'Graham Barr <gbarr@pobox.com>, Steve Hay <shay@cpan.org>',
         LICENSE  => 'perl_5',
-        VERSION  => '3.00',
+        VERSION  => '3.03',
 
         META_MERGE => {
             'meta-spec' => {
@@ -107,7 +107,7 @@ MAIN: {
                     prereqs => {
                         runtime => {
                             requires => {
-                                'IO::Socket::SSL' => '1.999'
+                                'IO::Socket::SSL' => '2.007'
                             }
                         }
                     }
@@ -188,7 +188,7 @@ MAIN: {
             'IO::Select'     => '0',
             'IO::Socket'     => '1.05',
             'POSIX'          => '0',
-            'Socket'         => '1.3',
+            'Socket'         => '2.016',
             'Symbol'         => '0',
             'Time::Local'    => '0',
             'constant'       => '0',
