@@ -2,6 +2,9 @@ Revision history for Perl distribution libnet
 
 3.03 Development
 
+    - Remodelled SSL support in Net::NNTP in the manner of Net::POP3 and
+      Net::SMTP.  [Steffen Ullrich, PR#9]
+
     - Increased minimum requred IO::Socket::SSL version from 1.999 to 2.007 to
       fix data connection problems in Net::FTP.  [Steffen Ullrich, CPAN
       RT#100529]
