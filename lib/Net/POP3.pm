@@ -87,13 +87,10 @@ sub new {
     unless defined $obj;
 
   ${*$obj}{'net_pop3_arg'} = \%arg;
-  if ($arg{SSL}) {
-    Net::POP3::_SSL->start_SSL($obj,
-      SSL_verifycn_name => $host,%arg
-    ) or return;
-  }
-
   ${*$obj}{'net_pop3_host'} = $host;
+  if ($arg{SSL}) {
+    Net::POP3::_SSL->start_SSL($obj,%arg) or return;
+  }
 
   $obj->autoflush(1);
   $obj->debug(exists $arg{Debug} ? $arg{Debug} : undef);
@@ -581,6 +578,8 @@ sub banner {
     delete @arg{ grep { !m{^SSL_} } keys %arg };
     ( $arg{SSL_verifycn_name} ||= $pop3->host )
 	=~s{(?<!:):[\w()]+$}{}; # strip port
+    $arg{SSL_hostname} = $arg{SSL_verifycn_name}
+	if ! defined $arg{SSL_hostname};
     $arg{SSL_verifycn_scheme} ||= 'pop3';
     my $ok = $class->SUPER::start_SSL($pop3,%arg);
     $@ = $ssl_class->errstr if !$ok;
