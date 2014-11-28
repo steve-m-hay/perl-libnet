@@ -1,6 +1,6 @@
 Revision history for Perl distribution libnet
 
-3.03 Development
+3.03 2014-11-28
 
     - Remodelled SSL support in Net::NNTP in the manner of Net::POP3 and
       Net::SMTP.  [Steffen Ullrich, PR#9]
