@@ -103,6 +103,7 @@ sub new {
     %tlsargs = (
       SSL_verifycn_scheme => 'ftp',
       SSL_verifycn_name => $hostname,
+      SSL_hostname => $hostname,
       # reuse SSL session of control connection in data connections
       SSL_session_cache => Net::FTP::_SSL_SingleSessionCache->new,
     );
@@ -1038,6 +1039,7 @@ sub _dataconn {
 	$ftp->is_SSL ? (
 	  SSL_reuse_ctx => $ftp,
 	  SSL_verifycn_name => ${*$ftp}{net_ftp_tlsargs}{SSL_verifycn_name},
+	  SSL_hostname => ${*$ftp}{net_ftp_tlsargs}{SSL_hostname},
 	) :( %{${*$ftp}{net_ftp_tlsargs}} ),
       ):(),
     ) or return;

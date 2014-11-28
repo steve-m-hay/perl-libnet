@@ -89,8 +89,10 @@ sub new {
     unless defined $obj;
 
   ${*$obj}{'net_smtp_arg'} = \%arg;
+  ${*$obj}{'net_smtp_host'} = $host;
+
   if ($arg{SSL}) {
-    Net::SMTP::_SSL->start_SSL($obj,SSL_verifycn_name => $host,%arg)
+    Net::SMTP::_SSL->start_SSL($obj,%arg)
       or return;
   }
 
@@ -106,7 +108,6 @@ sub new {
   }
 
   ${*$obj}{'net_smtp_exact_addr'} = $arg{ExactAddresses};
-  ${*$obj}{'net_smtp_host'}       = $host;
 
   (${*$obj}{'net_smtp_banner'}) = $obj->message;
   (${*$obj}{'net_smtp_domain'}) = $obj->message =~ /\A\s*(\S+)/;
@@ -614,6 +615,8 @@ sub _STARTTLS { shift->command("STARTTLS")->response() == CMD_OK }
     delete @arg{ grep { !m{^SSL_} } keys %arg };
     ( $arg{SSL_verifycn_name} ||= $smtp->host )
 	=~s{(?<!:):[\w()]+$}{}; # strip port
+    $arg{SSL_hostname} = $arg{SSL_verifycn_name}
+	if ! defined $arg{SSL_hostname};
     $arg{SSL_verifycn_scheme} ||= 'smtp';
     my $ok = $class->SUPER::start_SSL($smtp,%arg);
     $@ = $ssl_class->errstr if !$ok;
