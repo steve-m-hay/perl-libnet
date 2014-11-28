@@ -167,7 +167,8 @@ sub starttls {
   Net::NNTP::_SSL->start_SSL($self,
     %{ ${*$self}{'net_nntp_arg'} }, # (ssl) args given in new
     @_   # more (ssl) args
-  );
+  ) or return;
+  return 1;
 }
 
 
