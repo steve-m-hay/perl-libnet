@@ -758,7 +758,7 @@ sub DESTROY {
     ( $arg{SSL_verifycn_name} ||= $nntp->host )
 	=~s{(?<!:):[\w()]+$}{}; # strip port
     $arg{SSL_hostname} = $arg{SSL_verifycn_name}
-	if ! defined $arg{SSL_hostname};
+	if ! defined $arg{SSL_hostname} && $class->can_client_sni;
     my $ok = $class->SUPER::start_SSL($nntp,
       SSL_verifycn_scheme => 'nntp',
       %arg
