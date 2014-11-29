@@ -579,7 +579,7 @@ sub banner {
     ( $arg{SSL_verifycn_name} ||= $pop3->host )
 	=~s{(?<!:):[\w()]+$}{}; # strip port
     $arg{SSL_hostname} = $arg{SSL_verifycn_name}
-	if ! defined $arg{SSL_hostname};
+	if ! defined $arg{SSL_hostname} && $class->can_client_sni;
     $arg{SSL_verifycn_scheme} ||= 'pop3';
     my $ok = $class->SUPER::start_SSL($pop3,%arg);
     $@ = $ssl_class->errstr if !$ok;
