@@ -2,7 +2,10 @@ Revision history for Perl distribution libnet
 
 3.04 Development
 
-    - TODO
+    - SNI is now only used for SSL connections if it is supported by
+      IO::Socket::SSL (i.e. OpenSSL version >= 1).  (The previous release
+      switched to using SNI by default, which caused some CPAN Testers
+      failures.)  [Steffen Ullrich, PR#10]
 
 3.03 2014-11-28
 
