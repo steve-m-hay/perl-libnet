@@ -1,6 +1,6 @@
 Revision history for Perl distribution libnet
 
-3.04 Development
+3.04 2014-11-29
 
     - SNI is now only used for SSL connections if it is supported by
       IO::Socket::SSL (i.e. OpenSSL version >= 1).  (The previous release
