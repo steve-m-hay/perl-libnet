@@ -2,7 +2,7 @@ Revision history for Perl distribution libnet
 
 3.05 Development
 
-    - TODO
+    - Fixed infinite loop in Net::SMTP::auth().  [CPAN RT#100235]
 
 3.04 2014-11-29
 
