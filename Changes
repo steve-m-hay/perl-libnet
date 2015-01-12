@@ -1,6 +1,6 @@
 Revision history for Perl distribution libnet
 
-3.05 Development
+3.05 2015-01-12
 
     - Fixed infinite loop in Net::SMTP::auth().  [CPAN RT#100235]
 
