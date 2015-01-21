@@ -20,7 +20,7 @@ use Net::Cmd;
 use Net::Config;
 use Socket;
 
-our $VERSION = "3.06";
+our $VERSION = "3.06.01";
 
 # Code for detecting if we can use SSL
 my $ssl_class = eval {
@@ -112,11 +112,13 @@ sub new {
   (${*$obj}{'net_smtp_banner'}) = $obj->message;
   (${*$obj}{'net_smtp_domain'}) = $obj->message =~ /\A\s*(\S+)/;
 
-  unless ($obj->hello($arg{Hello} || "")) {
-    my $err = ref($obj) . ": " . $obj->code . " " . $obj->message;
-    $obj->close();
-    $@ = $err;
-    return;
+  if( !exists $arg{SendHello} || $arg{SendHello} ) {
+    unless ($obj->hello($arg{Hello} || "")) {
+      my $err = ref($obj) . ": " . $obj->code . " " . $obj->message;
+      $obj->close();
+      $@ = $err;
+      return;
+    }
   }
 
   $obj;
