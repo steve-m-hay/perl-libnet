@@ -2,7 +2,9 @@ Revision history for Perl distribution libnet
 
 3.06 Development
 
-    - TODO
+    - Added optional SendHello argument to Net::SMTP->new() to allow preventing
+      the EHLO/HELO command from being automatically sent by the constructor.
+      [PR#13, Danil Onishchenko]
 
 3.05 2015-01-12
 

@@ -714,6 +714,10 @@ B<Hello> - SMTP requires that you identify yourself. This option
 specifies a string to pass as your mail domain. If not given localhost.localdomain
 will be used.
 
+B<SendHello> - If false then the EHLO (or HELO) command that is normally sent
+when constructing the object will not be sent. In that case the command will
+have to be sent manually by calling C<hello()> instead.
+
 B<Host> - SMTP host to connect to. It may be a single scalar (hostname[:port]),
 as defined for the C<PeerAddr> option in L<IO::Socket::INET>, or a reference to
 an array with hosts to try in turn. The L</host> method will return the value
