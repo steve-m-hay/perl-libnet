@@ -165,7 +165,7 @@ MAIN: {
         CONFIGURE_REQUIRES => {
             'ExtUtils::MakeMaker' => '6.64',
             'Getopt::Std'         => '0',
-            'IO:File'             => '0',
+            'IO::File'            => '0',
             'perl'                => '5.008001',
             'strict'              => '0',
             'vars'                => '0',
