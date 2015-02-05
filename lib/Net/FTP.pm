@@ -452,7 +452,7 @@ sub authorize {
 
   my $ok = $ftp->_AUTH($auth || "");
 
-  $ok = $ftp->_RESP($resp || "")
+  return $ftp->_RESP($resp || "")
     if ($ok == CMD_MORE);
 
   $ok == CMD_OK;
