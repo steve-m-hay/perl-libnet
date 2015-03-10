@@ -617,9 +617,9 @@ sub _STARTTLS { shift->command("STARTTLS")->response() == CMD_OK }
     my ($class,$smtp,%arg) = @_;
     delete @arg{ grep { !m{^SSL_} } keys %arg };
     ( $arg{SSL_verifycn_name} ||= $smtp->host )
-	=~s{(?<!:):[\w()]+$}{}; # strip port
+        =~s{(?<!:):[\w()]+$}{}; # strip port
     $arg{SSL_hostname} = $arg{SSL_verifycn_name}
-	if ! defined $arg{SSL_hostname} && $class->can_client_sni;
+        if ! defined $arg{SSL_hostname} && $class->can_client_sni;
     $arg{SSL_verifycn_scheme} ||= 'smtp';
     my $ok = $class->SUPER::start_SSL($smtp,%arg);
     $@ = $ssl_class->errstr if !$ok;
@@ -764,11 +764,11 @@ Example:
 
     # the same with direct SSL
     $smtp = Net::SMTP->new('mailhost',
-			   Hello => 'my.mail.domain',
-			   Timeout => 30,
-			   Debug   => 1,
-			   SSL     => 1,
-			  );
+                           Hello => 'my.mail.domain',
+                           Timeout => 30,
+                           Debug   => 1,
+                           SSL     => 1,
+                          );
 
     # Connect to the default server from Net::config
     $smtp = Net::SMTP->new(

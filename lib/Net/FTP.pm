@@ -889,8 +889,8 @@ sub _eprt {
       Timeout   => $ftp->timeout,
       LocalAddr => $ftp->sockhost,
       can_ssl() ? (
-	%{ ${*$ftp}{net_ftp_tlsargs} },
-	SSL_startHandshake => 0,
+        %{ ${*$ftp}{net_ftp_tlsargs} },
+        SSL_startHandshake => 0,
       ):(),
     );
     ${*$ftp}{net_ftp_intern_port} = 1;
@@ -1036,15 +1036,15 @@ sub _dataconn {
       LocalAddr => ${*$ftp}{net_ftp_localaddr},
       Timeout   => $ftp->timeout,
       can_ssl() ? (
-	SSL_startHandshake => 0,
-	$ftp->is_SSL ? (
-	  SSL_reuse_ctx => $ftp,
-	  SSL_verifycn_name => ${*$ftp}{net_ftp_tlsargs}{SSL_verifycn_name},
-	  # This will cause the use of SNI if supported by IO::Socket::SSL.
-	  $ftp->can_client_sni ? (
-	    SSL_hostname  => ${*$ftp}{net_ftp_tlsargs}{SSL_hostname}
-	  ):(),
-	) :( %{${*$ftp}{net_ftp_tlsargs}} ),
+        SSL_startHandshake => 0,
+        $ftp->is_SSL ? (
+          SSL_reuse_ctx => $ftp,
+          SSL_verifycn_name => ${*$ftp}{net_ftp_tlsargs}{SSL_verifycn_name},
+          # This will cause the use of SNI if supported by IO::Socket::SSL.
+          $ftp->can_client_sni ? (
+            SSL_hostname  => ${*$ftp}{net_ftp_tlsargs}{SSL_hostname}
+          ):(),
+        ) :( %{${*$ftp}{net_ftp_tlsargs}} ),
       ):(),
     ) or return;
   } elsif (my $listen =  delete ${*$ftp}{net_ftp_listen}) {
@@ -1141,7 +1141,7 @@ sub _data_cmd {
     my $data = $ftp->_dataconn();
     if (CMD_INFO == $ftp->response()) {
       $data->reading
-	if $data && $cmd =~ /RETR|LIST|NLST/;
+        if $data && $cmd =~ /RETR|LIST|NLST/;
       return $data;
     }
     $data->_close if $data;
