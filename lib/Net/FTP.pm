@@ -1839,6 +1839,7 @@ C<put_unique> and those that do not require data connections.
 =over 4
 
 =item port ( [ PORT ] )
+
 =item eprt ( [ PORT ] )
 
 Send a C<PORT> (IPv4) or C<EPRT> (IPv6) command to the server. If C<PORT> is
@@ -1846,6 +1847,7 @@ specified then it is sent to the server. If not, then a listen socket is created
 and the correct information sent to the server.
 
 =item pasv ()
+
 =item epsv ()
 
 Tell the server to go into passive mode (C<pasv> for IPv4, C<epsv> for IPv6).
