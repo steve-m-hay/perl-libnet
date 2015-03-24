@@ -108,7 +108,9 @@ COPYRIGHT
   Changes in Version 1.22_02 onwards Copyright (C) 2013-2014 Steve Hay.
   All rights reserved.
 
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
+This distribution is free software; you can redistribute it and/or modify it
+under the same terms as Perl itself, i.e. under the terms of either the GNU
+General Public License or the Artistic License, as specified in the LICENCE
+file.
 
 Share and Enjoy!
