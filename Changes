@@ -1,6 +1,6 @@
 Revision history for Perl distribution libnet
 
-3.06 Development
+3.06 2015-04-01
 
     - Fixed INSTALLDIRS to account for the @INC reordering change in Perl 5.12.
       See Perl RT#116479 for details.  (libnet entered the perl core in Perl
