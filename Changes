@@ -2,6 +2,14 @@ Revision history for Perl distribution libnet
 
 3.06 Development
 
+    - Fixed INSTALLDIRS to account for the @INC reordering change in Perl 5.12.
+      See Perl RT#116479 for details.  (libnet entered the perl core in Perl
+      5.7.3 so that's what the lower bound of the check should strictly be, but
+      since we only support Perl 5.8.1 and higher anyway it suffices to check
+      for Perl 5.8.  The upper bound is correctly Perl 5.11.0 since the @INC
+      reordering change in question (Perl core commit #b9ba2fadb1) first
+      appeared in Perl 5.11.0.)  [CPAN RT#103238]
+
     - Fixed Net::FTP authorize() method, which incorrectly interpreted the
       return value of the _RESP() method and falsely reported a failure.  [Troy
       Loveday, CPAN RT#48532]
