@@ -914,6 +914,8 @@ sub _eprt {
 sub ls  { shift->_list_cmd("NLST", @_); }
 sub dir { shift->_list_cmd("LIST", @_); }
 
+sub ls_a  { shift->_list_cmd("NLST", "-a"); }
+sub dir_a { shift->_list_cmd("LIST", "-a"); }
 
 sub pasv {
   my $ftp = shift;
@@ -1115,6 +1117,11 @@ sub _data_cmd {
   my $ok    = 1;
   my $where = delete ${*$ftp}{'net_ftp_rest'} || 0;
   my $arg;
+
+  if ($_[0] eq "-a") {
+    $cmd .= " -a";
+    shift;
+  }
 
   for my $arg (@_) {
     croak("Bad argument '$arg'\n")
@@ -1693,12 +1700,21 @@ Get a directory listing of C<DIR>, or the current directory.
 In an array context, returns a list of lines returned from the server. In
 a scalar context, returns a reference to a list.
 
+=item ls_a ()
+
+Get a directory listing of the current directory including hidden files.
+
 =item dir ( [ DIR ] )
 
 Get a directory listing of C<DIR>, or the current directory in long format.
 
 In an array context, returns a list of lines returned from the server. In
 a scalar context, returns a reference to a list.
+
+=item dir_a ()
+
+Get a directory listing of the current directory in long format including
+hidden files.
 
 =item get ( REMOTE_FILE [, LOCAL_FILE [, WHERE]] )
 
