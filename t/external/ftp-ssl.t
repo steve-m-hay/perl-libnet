@@ -44,7 +44,7 @@ IO::Socket::SSL->start_SSL($sock,
     %sslargs,
 ) or do {
     plan skip_all => "$server:990 not upgradable to SSL: ".
-i       $IO::Socket::SSL::SSL_ERROR;
+        $IO::Socket::SSL::SSL_ERROR;
 };
 
 plan tests => 9;
