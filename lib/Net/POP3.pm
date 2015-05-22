@@ -4,8 +4,9 @@
 # All rights reserved.
 # Changes in Version 2.29_01 onwards Copyright (C) 2013-2014 Steve Hay.  All
 # rights reserved.
-# This program is free software; you can redistribute it and/or
-# modify it under the same terms as Perl itself.
+# This module is free software; you can redistribute it and/or modify it under
+# the same terms as Perl itself, i.e. under the terms of either the GNU General
+# Public License or the Artistic License, as specified in the F<LICENCE> file.
 
 package Net::POP3;
 
@@ -19,7 +20,7 @@ use IO::Socket;
 use Net::Cmd;
 use Net::Config;
 
-our $VERSION = "3.03";
+our $VERSION = "3.06";
 
 # Code for detecting if we can use SSL
 my $ssl_class = eval {
@@ -87,13 +88,10 @@ sub new {
     unless defined $obj;
 
   ${*$obj}{'net_pop3_arg'} = \%arg;
-  if ($arg{SSL}) {
-    Net::POP3::_SSL->start_SSL($obj,
-      SSL_verifycn_name => $host,%arg
-    ) or return;
-  }
-
   ${*$obj}{'net_pop3_host'} = $host;
+  if ($arg{SSL}) {
+    Net::POP3::_SSL->start_SSL($obj,%arg) or return;
+  }
 
   $obj->autoflush(1);
   $obj->debug(exists $arg{Debug} ? $arg{Debug} : undef);
@@ -580,7 +578,9 @@ sub banner {
     my ($class,$pop3,%arg) = @_;
     delete @arg{ grep { !m{^SSL_} } keys %arg };
     ( $arg{SSL_verifycn_name} ||= $pop3->host )
-	=~s{(?<!:):[\w()]+$}{}; # strip port
+        =~s{(?<!:):[\w()]+$}{}; # strip port
+    $arg{SSL_hostname} = $arg{SSL_verifycn_name}
+        if ! defined $arg{SSL_hostname} && $class->can_client_sni;
     $arg{SSL_verifycn_scheme} ||= 'pop3';
     my $ok = $class->SUPER::start_SSL($pop3,%arg);
     $@ = $ssl_class->errstr if !$ok;
@@ -843,7 +843,8 @@ Versions up to 2.29 Copyright (c) 1995-2004 Graham Barr. All rights reserved.
 Changes in Version 2.29_01 onwards Copyright (C) 2013-2014 Steve Hay.  All
 rights reserved.
 
-This program is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
+This module is free software; you can redistribute it and/or modify it under the
+same terms as Perl itself, i.e. under the terms of either the GNU General Public
+License or the Artistic License, as specified in the F<LICENCE> file.
 
 =cut

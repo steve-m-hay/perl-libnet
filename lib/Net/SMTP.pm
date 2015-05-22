@@ -4,8 +4,9 @@
 # All rights reserved.
 # Changes in Version 2.31_2 onwards Copyright (C) 2013-2014 Steve Hay.  All
 # rights reserved.
-# This program is free software; you can redistribute it and/or
-# modify it under the same terms as Perl itself.
+# This module is free software; you can redistribute it and/or modify it under
+# the same terms as Perl itself, i.e. under the terms of either the GNU General
+# Public License or the Artistic License, as specified in the F<LICENCE> file.
 
 package Net::SMTP;
 
@@ -20,7 +21,7 @@ use Net::Cmd;
 use Net::Config;
 use Socket;
 
-our $VERSION = "3.03";
+our $VERSION = "3.06";
 
 # Code for detecting if we can use SSL
 my $ssl_class = eval {
@@ -89,8 +90,10 @@ sub new {
     unless defined $obj;
 
   ${*$obj}{'net_smtp_arg'} = \%arg;
+  ${*$obj}{'net_smtp_host'} = $host;
+
   if ($arg{SSL}) {
-    Net::SMTP::_SSL->start_SSL($obj,SSL_verifycn_name => $host,%arg)
+    Net::SMTP::_SSL->start_SSL($obj,%arg)
       or return;
   }
 
@@ -106,16 +109,17 @@ sub new {
   }
 
   ${*$obj}{'net_smtp_exact_addr'} = $arg{ExactAddresses};
-  ${*$obj}{'net_smtp_host'}       = $host;
 
   (${*$obj}{'net_smtp_banner'}) = $obj->message;
   (${*$obj}{'net_smtp_domain'}) = $obj->message =~ /\A\s*(\S+)/;
 
-  unless ($obj->hello($arg{Hello} || "")) {
-    my $err = ref($obj) . ": " . $obj->code . " " . $obj->message;
-    $obj->close();
-    $@ = $err;
-    return;
+  if (!exists $arg{SendHello} || $arg{SendHello}) {
+    unless ($obj->hello($arg{Hello} || "")) {
+      my $err = ref($obj) . ": " . $obj->code . " " . $obj->message;
+      $obj->close();
+      $@ = $err;
+      return;
+    }
   }
 
   $obj;
@@ -192,10 +196,11 @@ sub auth {
     if ($client) {
       # $client mechanism failed, so we need to exclude this mechanism from list
       my $failed_mechanism = $client->mechanism;
+      return unless defined $failed_mechanism;
       $self->debug_text("Auth mechanism failed: $failed_mechanism")
         if $self->debug;
       $mechanisms =~ s/\b\Q$failed_mechanism\E\b//;
-      last unless $mechanisms =~ /\S/;
+      return unless $mechanisms =~ /\S/;
       $sasl->mechanism($mechanisms);
     }
     
@@ -613,7 +618,9 @@ sub _STARTTLS { shift->command("STARTTLS")->response() == CMD_OK }
     my ($class,$smtp,%arg) = @_;
     delete @arg{ grep { !m{^SSL_} } keys %arg };
     ( $arg{SSL_verifycn_name} ||= $smtp->host )
-	=~s{(?<!:):[\w()]+$}{}; # strip port
+        =~s{(?<!:):[\w()]+$}{}; # strip port
+    $arg{SSL_hostname} = $arg{SSL_verifycn_name}
+        if ! defined $arg{SSL_hostname} && $class->can_client_sni;
     $arg{SSL_verifycn_scheme} ||= 'smtp';
     my $ok = $class->SUPER::start_SSL($smtp,%arg);
     $@ = $ssl_class->errstr if !$ok;
@@ -708,6 +715,10 @@ B<Hello> - SMTP requires that you identify yourself. This option
 specifies a string to pass as your mail domain. If not given localhost.localdomain
 will be used.
 
+B<SendHello> - If false then the EHLO (or HELO) command that is normally sent
+when constructing the object will not be sent. In that case the command will
+have to be sent manually by calling C<hello()> instead.
+
 B<Host> - SMTP host to connect to. It may be a single scalar (hostname[:port]),
 as defined for the C<PeerAddr> option in L<IO::Socket::INET>, or a reference to
 an array with hosts to try in turn. The L</host> method will return the value
@@ -754,11 +765,11 @@ Example:
 
     # the same with direct SSL
     $smtp = Net::SMTP->new('mailhost',
-			   Hello => 'my.mail.domain',
-			   Timeout => 30,
-			   Debug   => 1,
-			   SSL     => 1,
-			  );
+                           Hello => 'my.mail.domain',
+                           Timeout => 30,
+                           Debug   => 1,
+                           SSL     => 1,
+                          );
 
     # Connect to the default server from Net::config
     $smtp = Net::SMTP->new(
@@ -1010,7 +1021,8 @@ Versions up to 2.31_1 Copyright (c) 1995-2004 Graham Barr. All rights reserved.
 Changes in Version 2.31_2 onwards Copyright (C) 2013-2014 Steve Hay.  All rights
 reserved.
 
-This program is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
+This module is free software; you can redistribute it and/or modify it under the
+same terms as Perl itself, i.e. under the terms of either the GNU General Public
+License or the Artistic License, as specified in the F<LICENCE> file.
 
 =cut

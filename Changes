@@ -1,6 +1,30 @@
 Revision history for Perl distribution libnet
 
-3.03 Development
+3.06 Development
+
+    - Fixed Net::FTP authorize() method, which incorrectly interpreted the
+      return value of the _RESP() method and falsely reported a failure.  [Troy
+      Loveday, CPAN RT#48532]
+
+    - Added optional SendHello argument to Net::SMTP->new() to allow preventing
+      the EHLO/HELO command from being automatically sent by the constructor.
+      [Danil Onishchenko, PR#13]
+
+3.05 2015-01-12
+
+    - Fixed infinite loop in Net::SMTP::auth().  [CPAN RT#100235]
+
+3.04 2014-11-29
+
+    - SNI is now only used for SSL connections if it is supported by
+      IO::Socket::SSL (i.e. OpenSSL version >= 1).  (The previous release
+      switched to using SNI by default, which caused some CPAN Testers
+      failures.)  [Steffen Ullrich, PR#10]
+
+3.03 2014-11-28
+
+    - Remodelled SSL support in Net::NNTP in the manner of Net::POP3 and
+      Net::SMTP.  [Steffen Ullrich, PR#9]
 
     - Increased minimum requred IO::Socket::SSL version from 1.999 to 2.007 to
       fix data connection problems in Net::FTP.  [Steffen Ullrich, CPAN

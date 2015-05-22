@@ -67,7 +67,7 @@ sub pop3_client {
   );
   $sslopt{SSL} = 1 if $ssl;
   my $cl = Net::POP3->new($saddr, %sslopt, Debug => $debug);
-  diag("created Net::POP3 object");
+  note("created Net::POP3 object");
   if (!$cl) {
     fail( ($ssl ? "SSL ":"" )."POP3 connect failed");
   } elsif ($ssl) {
@@ -106,13 +106,13 @@ sub pop3_server {
       last;
     } elsif ( $cmd eq 'CAPA' ) {
       print $cl "+OK\r\n".
-	( $ssl ? "" : "STLS\r\n" ).
-	".\r\n";
+        ( $ssl ? "" : "STLS\r\n" ).
+        ".\r\n";
     } elsif ( ! $ssl and $cmd eq 'STLS' ) {
       print $cl "+OK starting ssl\r\n";
       if ( ! IO::Socket::SSL->start_SSL($cl, %sslargs)) {
-	diag("initial ssl handshake with client failed");
-	return;
+        diag("initial ssl handshake with client failed");
+        return;
       }
       $ssl = 1;
     } else {
@@ -121,5 +121,5 @@ sub pop3_server {
     }
   }
 
-  diag("POP3 dialog done");
+  note("POP3 dialog done");
 }
