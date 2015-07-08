@@ -20,7 +20,7 @@ use IO::Socket;
 use Net::Cmd;
 use Net::Config;
 
-our $VERSION = "3.06";
+our $VERSION = "3.07";
 
 # Code for detecting if we can use SSL
 my $ssl_class = eval {
