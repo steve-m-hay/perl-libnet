@@ -7,7 +7,7 @@
 #   Makefile creation script.
 #
 # COPYRIGHT
-#   Copyright (C) 2014 Steve Hay.  All rights reserved.
+#   Copyright (C) 2014, 2015 Steve Hay.  All rights reserved.
 #
 # LICENCE
 #   This script is free software; you can redistribute it and/or modify it under
@@ -206,6 +206,7 @@ MAIN: {
             'Time::Local'    => '0',
             'constant'       => '0',
             'strict'         => '0',
+            'utf8'           => '0',
             'vars'           => '0'
         },
 

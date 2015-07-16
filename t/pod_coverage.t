@@ -7,7 +7,7 @@
 #   Test script to check POD coverage.
 #
 # COPYRIGHT
-#   Copyright (C) 2014 Steve Hay.  All rights reserved.
+#   Copyright (C) 2014, 2015 Steve Hay.  All rights reserved.
 #
 # LICENCE
 #   This script is free software; you can redistribute it and/or modify it under
@@ -48,7 +48,7 @@ MAIN: {
         my $params = { coverage_class => qw(Pod::Coverage::CountParents) };
         pod_coverage_ok('Net::Cmd', {
             %$params,
-            also_private => [qw(is_utf8 toascii toebcdic set_status)]
+            also_private => [qw(toascii toebcdic set_status)]
         });
         pod_coverage_ok('Net::Config', {
             %$params,

@@ -2,7 +2,7 @@
 #
 # Versions up to 2.31_1 Copyright (c) 1995-2004 Graham Barr <gbarr@pobox.com>.
 # All rights reserved.
-# Changes in Version 2.31_2 onwards Copyright (C) 2013-2014 Steve Hay.  All
+# Changes in Version 2.31_2 onwards Copyright (C) 2013-2015 Steve Hay.  All
 # rights reserved.
 # This module is free software; you can redistribute it and/or modify it under
 # the same terms as Perl itself, i.e. under the terms of either the GNU General
@@ -942,9 +942,12 @@ Synonyms for C<recipient>.
 
 Initiate the sending of the data from the current message. 
 
-C<DATA> may be a reference to a list or a list. If specified the contents
-of C<DATA> and a termination string C<".\r\n"> is sent to the server. And the
-result will be true if the data was accepted.
+C<DATA> may be a reference to a list or a list and must be encoded by the
+caller to octets of whatever encoding is required, e.g. by using the Encode
+module's C<encode()> function.
+
+If specified the contents of C<DATA> and a termination string C<".\r\n"> is
+sent to the server. The result will be true if the data was accepted.
 
 If C<DATA> is not specified then the result will indicate that the server
 wishes the data to be sent. The data must then be sent using the C<datasend>

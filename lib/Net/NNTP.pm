@@ -2,7 +2,7 @@
 #
 # Versions up to 2.24_1 Copyright (c) 1995-1997 Graham Barr <gbarr@pobox.com>.
 # All rights reserved.
-# Changes in Version 2.25 onwards Copyright (C) 2013-2014 Steve Hay.  All rights
+# Changes in Version 2.25 onwards Copyright (C) 2013-2015 Steve Hay.  All rights
 # reserved.
 # This module is free software; you can redistribute it and/or modify it under
 # the same terms as Perl itself, i.e. under the terms of either the GNU General
@@ -947,15 +947,17 @@ implementation) from the server. Returns the text or undef upon failure.
 
 The C<ihave> command informs the server that the client has an article
 whose id is C<MSGID>.  If the server desires a copy of that
-article, and C<MESSAGE> has been given the it will be sent.
+article and C<MESSAGE> has been given then it will be sent.
 
 Returns I<true> if the server desires the article and C<MESSAGE> was
-successfully sent,if specified.
+successfully sent, if specified.
 
 If C<MESSAGE> is not specified then the message must be sent using the
 C<datasend> and C<dataend> methods from L<Net::Cmd>
 
-C<MESSAGE> can be either an array of lines or a reference to an array.
+C<MESSAGE> can be either an array of lines or a reference to an array
+and must be encoded by the caller to octets of whatever encoding is required,
+e.g. by using the Encode module's C<encode()> function.
 
 =item last ()
 
@@ -1028,7 +1030,9 @@ is allowed then the message will be sent.
 If C<MESSAGE> is not specified then the message must be sent using the
 C<datasend> and C<dataend> methods from L<Net::Cmd>
 
-C<MESSAGE> can be either an array of lines or a reference to an array.
+C<MESSAGE> can be either an array of lines or a reference to an array
+and must be encoded by the caller to octets of whatever encoding is required,
+e.g. by using the Encode module's C<encode()> function.
 
 The message, either sent via C<datasend> or as the C<MESSAGE>
 parameter, must be in the format as described by RFC822 and must
