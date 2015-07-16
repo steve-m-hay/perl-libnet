@@ -806,7 +806,7 @@ in RFC977 and RFC4642.
 With L<IO::Socket::SSL> installed it also provides support for implicit and
 explicit TLS encryption, i.e. NNTPS or NNTP+STARTTLS.
 
-The Net::NNTP class is a subclass of Net::Cmd and IO::Socket::INET.
+The Net::NNTP class is a subclass of Net::Cmd and (depending on avaibility) of
 IO::Socket::IP, IO::Socket::INET6 or IO::Socket::INET.
 
 =head1 CONSTRUCTOR
@@ -851,7 +851,7 @@ with a value of zero, then this command will not be sent and the
 connection will be left talking to nnrpd.
 
 B<LocalAddr> and B<LocalPort> - These parameters are passed directly
-to IO::Socket to allow binding the socket to a a specific local addr and port.
+to IO::Socket to allow binding the socket to a specific local address and port.
 
 B<Domain> - This parameter is passed directly to IO::Socket and makes it
 possible to enforce IPv4 connections even if L<IO::Socket::IP> is used as super
@@ -1292,7 +1292,7 @@ Steve Hay E<lt>F<shay@cpan.org>E<gt> is now maintaining libnet as of version
 =head1 COPYRIGHT
 
 Versions up to 2.24_1 Copyright (c) 1995-1997 Graham Barr. All rights reserved.
-Changes in Version 2.25 onwards Copyright (C) 2013-2014 Steve Hay.  All rights
+Changes in Version 2.25 onwards Copyright (C) 2013-2015 Steve Hay.  All rights
 reserved.
 
 This module is free software; you can redistribute it and/or modify it under the

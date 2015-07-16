@@ -737,7 +737,7 @@ You can use SSL arguments as documented in L<IO::Socket::SSL>, but it will
 usually use the right arguments already.
 
 B<LocalAddr> and B<LocalPort> - These parameters are passed directly
-to IO::Socket to allow binding the socket to a a specific local addr and port.
+to IO::Socket to allow binding the socket to a specific local address and port.
 
 B<Domain> - This parameter is passed directly to IO::Socket and makes it
 possible to enforce IPv4 connections even if L<IO::Socket::IP> is used as super
@@ -1028,7 +1028,7 @@ Steve Hay E<lt>F<shay@cpan.org>E<gt> is now maintaining libnet as of version
 =head1 COPYRIGHT
 
 Versions up to 2.31_1 Copyright (c) 1995-2004 Graham Barr. All rights reserved.
-Changes in Version 2.31_2 onwards Copyright (C) 2013-2014 Steve Hay.  All rights
+Changes in Version 2.31_2 onwards Copyright (C) 2013-2015 Steve Hay.  All rights
 reserved.
 
 This module is free software; you can redistribute it and/or modify it under the

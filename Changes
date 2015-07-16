@@ -2,14 +2,24 @@ Revision history for Perl distribution libnet
 
 3.07 Development
 
+    - Net::FTP, Net::NNTP, Net::POP3 and Net::SMTP can now restrict domain to
+      IPv4 even if IPv6 is available by using the new Domain or Family argument.
+
+      Net::NNTP now supports the LocalPort argument in addition to LocalAddr.
+
+      Net::POP3 now supports the LocalAddr and LocalPort arguments in addition
+      to ResvPort (which is retained for backwards compatibility).
+
+      [Steffen Ullrich, PR#18]
+
     - Fixed a bug in Net::Cmd::datasend() which caused octets in [\x80-\xFF]
       stored in a "binary string" to be replaced with their UTF-8 encodings if
       the string happened to be stored internally in an "upgraded" state (i.e.
-      with the UTF-8 flag on). (As noted below, strings passed to datasend()
+      with the UTF-8 flag on).  (As noted below, strings passed to datasend()
       should always be encoded first, and therefore not stored in such a state
       anyway, but it is all too easy for perl to change this internal state
       unless the encodeing is done at the very last minute before calling
-      datasend(), so it helps if datasend() plays more nicely in this case. In
+      datasend(), so it helps if datasend() plays more nicely in this case.  In
       particular, it was wrong of datasend() to treat upgraded and downgraded
       strings differently when their contents were identical at the Perl level.)
 
@@ -19,12 +29,12 @@ Revision history for Perl distribution libnet
       datasend(), but callers of datasend() should not have been relying on this
       behaviour anyway: In general, datasend() has no idea what encoding is
       required for output so callers should always encode the data to be output
-      to whatever encoding is required first. This has now been clarified in the
-      documentation.
+      to whatever encoding is required first.  This has now been clarified in
+      the documentation.
 
       Finally, a text string with characters >= U+0100 will now cause a "Wide
       character in print" warning from datasend() since such characters cannot
-      be output as bytes and datasend() no longer encodes to UTF-8. In this
+      be output as bytes and datasend() no longer encodes to UTF-8.  In this
       case, UTF-8 bytes will still be output as before since that happens to be
       the internal representation of such characters, but the warning is new.
       Callers should heed this warning and encode such strings to whatever

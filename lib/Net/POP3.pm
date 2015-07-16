@@ -2,7 +2,7 @@
 #
 # Versions up to 2.29 Copyright (c) 1995-2004 Graham Barr <gbarr@pobox.com>.
 # All rights reserved.
-# Changes in Version 2.29_01 onwards Copyright (C) 2013-2014 Steve Hay.  All
+# Changes in Version 2.29_01 onwards Copyright (C) 2013-2015 Steve Hay.  All
 # rights reserved.
 # This module is free software; you can redistribute it and/or modify it under
 # the same terms as Perl itself, i.e. under the terms of either the GNU General
@@ -628,7 +628,7 @@ This module implements a client interface to the POP3 protocol, enabling
 a perl5 application to talk to POP3 servers. This documentation assumes
 that you are familiar with the POP3 protocol described in RFC1939.
 With L<IO::Socket::SSL> installed it also provides support for implicit and
-explicit TLS encryption, i.e. POP3S or POP3+STLS.
+explicit TLS encryption, i.e. POP3S or POP3+STARTTLS.
 
 A new Net::POP3 object must be created with the I<new> method. Once
 this has been done, all POP3 commands are accessed via method calls
@@ -668,7 +668,7 @@ You can use SSL arguments as documented in L<IO::Socket::SSL>, but it will
 usually use the right arguments already.
 
 B<LocalAddr> and B<LocalPort> - These parameters are passed directly
-to IO::Socket to allow binding the socket to a a specific local addr and port.
+to IO::Socket to allow binding the socket to a specific local address and port.
 For compatibility with older versions B<ResvPort> can be used instead of
 B<LocalPort>.
 
@@ -853,7 +853,7 @@ Steve Hay E<lt>F<shay@cpan.org>E<gt> is now maintaining libnet as of version
 =head1 COPYRIGHT
 
 Versions up to 2.29 Copyright (c) 1995-2004 Graham Barr. All rights reserved.
-Changes in Version 2.29_01 onwards Copyright (C) 2013-2014 Steve Hay.  All
+Changes in Version 2.29_01 onwards Copyright (C) 2013-2015 Steve Hay.  All
 rights reserved.
 
 This module is free software; you can redistribute it and/or modify it under the

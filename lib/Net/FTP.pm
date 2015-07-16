@@ -2,7 +2,7 @@
 #
 # Versions up to 2.77_2 Copyright (c) 1995-2004 Graham Barr <gbarr@pobox.com>.
 # All rights reserved.
-# Changes in Version 2.77_3 onwards Copyright (C) 2013-2014 Steve Hay.  All
+# Changes in Version 2.77_3 onwards Copyright (C) 2013-2015 Steve Hay.  All
 # rights reserved.
 # This module is free software; you can redistribute it and/or modify it under
 # the same terms as Perl itself, i.e. under the terms of either the GNU General
@@ -2035,7 +2035,7 @@ Roderick Schertler <roderick@gate.net> - for various inputs
 =head1 COPYRIGHT
 
 Versions up to 2.77_2 Copyright (c) 1995-2004 Graham Barr. All rights reserved.
-Changes in Version 2.77_3 onwards Copyright (C) 2013-2014 Steve Hay.  All rights
+Changes in Version 2.77_3 onwards Copyright (C) 2013-2015 Steve Hay.  All rights
 reserved.
 
 This module is free software; you can redistribute it and/or modify it under the
