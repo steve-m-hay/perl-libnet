@@ -35,10 +35,12 @@ my $nossl_warn = !$ssl_class &&
   'To use SSL please install IO::Socket::SSL with version>=2.007';
 
 # Code for detecting if we can use IPv6
+my $family_key = 'Domain';
 my $inet6_class = eval {
   require IO::Socket::IP;
   no warnings 'numeric';
-  IO::Socket::IP->VERSION(0.20);
+  IO::Socket::IP->VERSION(0.20) || die;
+  $family_key = 'Family';
 } && 'IO::Socket::IP' || eval {
   require IO::Socket::INET6;
   no warnings 'numeric';
@@ -80,6 +82,7 @@ sub new {
       PeerPort => $arg{Port} || 'smtp(25)',
       LocalAddr => $arg{LocalAddr},
       LocalPort => $arg{LocalPort},
+      $family_key => $arg{Domain} || $arg{Family},
       Proto     => 'tcp',
       Timeout   => $arg{Timeout}
       )
@@ -651,12 +654,12 @@ Net::SMTP - Simple Mail Transfer Protocol Client
 This module implements a client interface to the SMTP and ESMTP
 protocol, enabling a perl5 application to talk to SMTP servers. This
 documentation assumes that you are familiar with the concepts of the
-SMTP protocol described in RFC821.
+SMTP protocol described in RFC2821.
+With L<IO::Socket::SSL> installed it also provides support for implicit and
+explicit TLS encryption, i.e. SMTPS or SMTP+STARTTLS.
 
-A new Net::SMTP object must be created with the I<new> method. Once
-this has been done, all SMTP commands are accessed through this object.
-
-The Net::SMTP class is a subclass of Net::Cmd and IO::Socket::INET.
+The Net::SMTP class is a subclass of Net::Cmd and (depending on avaibility) of
+IO::Socket::IP, IO::Socket::INET6 or IO::Socket::INET.
 
 =head1 EXAMPLES
 
@@ -734,7 +737,11 @@ You can use SSL arguments as documented in L<IO::Socket::SSL>, but it will
 usually use the right arguments already.
 
 B<LocalAddr> and B<LocalPort> - These parameters are passed directly
-to IO::Socket to allow binding the socket to a local port.
+to IO::Socket to allow binding the socket to a a specific local addr and port.
+
+B<Domain> - This parameter is passed directly to IO::Socket and makes it
+possible to enforce IPv4 connections even if L<IO::Socket::IP> is used as super
+class. Alternatively B<Family> can be used.
 
 B<Timeout> - Maximum time, in seconds, to wait for a response from the
 SMTP server (default: 120)
