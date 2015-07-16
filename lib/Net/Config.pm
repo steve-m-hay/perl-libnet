@@ -134,7 +134,7 @@ __END__
 
 Net::Config - Local configuration data for libnet
 
-=head1 SYNOPSYS
+=head1 SYNOPSIS
 
     use Net::Config qw(%NetConfig);
 
