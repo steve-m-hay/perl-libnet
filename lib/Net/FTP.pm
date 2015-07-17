@@ -137,7 +137,7 @@ sub new {
   ${*$ftp}{'net_ftp_blksize'} = abs($arg{'BlockSize'} || 10240);
 
   ${*$ftp}{'net_ftp_localaddr'} = $arg{'LocalAddr'};
-  ${*$ftp}{'net_ftp_family'} = $arg{Domain} || $arg{Family};
+  ${*$ftp}{'net_ftp_domain'} = $arg{Domain} || $arg{Family};
 
   ${*$ftp}{'net_ftp_firewall'} = $fire
     if (defined $fire);
