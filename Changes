@@ -2,6 +2,12 @@ Revision history for Perl distribution libnet
 
 3.07 Development
 
+    - Net::FTP::rmdir() has been made more robust by making use of the MLSD
+      command in addition to the NLST command since the latter is known not to
+      be processed correctly by some FTP servers.
+
+      [Chris Lindee, CPAN RT#100694]
+
     - Net::FTP, Net::NNTP, Net::POP3 and Net::SMTP can now restrict domain to
       IPv4 even if IPv6 is available by using the new Domain or Family argument.
 
