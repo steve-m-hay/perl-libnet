@@ -1,6 +1,6 @@
 Revision history for Perl distribution libnet
 
-3.07 Development
+3.07 2015-07-17
 
     - Net::FTP::rmdir() has been made more robust by making use of the MLSD
       command in addition to the NLST command since the latter is known not to
