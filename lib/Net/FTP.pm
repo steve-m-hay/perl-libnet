@@ -669,8 +669,12 @@ sub rmdir {
     or !$recurse;
 
   # Try to delete the contents
-  # Get a list of all the files in the directory
-  my @filelist = grep { !/^\.{1,2}$/ } $ftp->ls($dir);
+  # Get a list of all the files in the directory, excluding the current and parent directories
+  my @filelist = map { /^(?:\S+;)+ (.+)$/ ? ($1) : () } grep { !/^(?:\S+;)*type=[cp]dir;/ } $ftp->_list_cmd("MLSD", $dir);
+
+  # Fallback to using the less well-defined NLST command if MLSD fails
+  @filelist = grep { !/^\.{1,2}$/ } $ftp->ls($dir)
+    unless @filelist;
 
   return
     unless @filelist;    # failed, it is probably not a directory
@@ -1151,7 +1155,7 @@ sub _data_cmd {
     my $data = $ftp->_dataconn();
     if (CMD_INFO == $ftp->response()) {
       $data->reading
-        if $data && $cmd =~ /RETR|LIST|NLST/;
+        if $data && $cmd =~ /RETR|LIST|NLST|MLSD/;
       return $data;
     }
     $data->_close if $data;
@@ -1190,7 +1194,7 @@ sub _data_cmd {
     my $data = $ftp->_dataconn();
 
     $data->reading
-      if $data && $cmd =~ /RETR|LIST|NLST/;
+      if $data && $cmd =~ /RETR|LIST|NLST|MLSD/;
 
     return $data;
   }
