@@ -34,7 +34,7 @@ If you have a Git client, then you can checkout the latest code with
 
 DOCUMENTATION
 
-See ChangeLog for recent changes.  POD style documentation is included
+See Changes for recent changes.  POD style documentation is included
 in all modules and scripts.  These are normally converted to manual
 pages and installed as part of the installation process.  You should
 also be able to use the 'perldoc' utility to extract documentation from
