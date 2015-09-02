@@ -210,7 +210,7 @@ MAIN: {
             'vars'           => '0'
         },
 
-        INSTALLDIRS => ($] >= 5.008 && $] < 5.011) ? 'perl' : 'site',
+        INSTALLDIRS => ($] < 5.011 ? 'perl' : 'site'),
 
         realclean => {
             FILES => $CfgFile
