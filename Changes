@@ -2,7 +2,7 @@ Revision history for Perl distribution libnet
 
 3.08 Development
 
-    - Simplify specification of INSTALLDIRS: We do not need to check the lower
+    - Simplified specification of INSTALLDIRS: We do not need to check the lower
       bound since we only support Perl 5.8.1 and higher anyway.
 
 3.07 2015-07-17
