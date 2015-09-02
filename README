@@ -32,52 +32,11 @@ If you have a Git client, then you can checkout the latest code with
 
     git clone http://github.com/steve-m-hay/perl-libnet.git
 
-INSTALLATION
-
-In order to use this package you will need Perl version 5.8.1 or
-better.  You install libnet, as you would install any perl module
-library, by running these commands:
-
-   perl Makefile.PL
-   make
-   make test
-   make install
-
-If you want to install a private copy of libnet in your home
-directory, then you should try to produce the initial Makefile with
-something like this command:
-
-  perl Makefile.PL PREFIX=~/perl
-
-
-The Makefile.PL program will start out by checking your perl
-installation for a few packages that are recommended to be installed
-together with libnet.  These packages should be available on CPAN
-(described above).
-
-CONFIGURE
-
-Normally when Makefile.PL is run it will run Configure which will
-ask some questions about your system. The results of these questions
-will be stored in a file called libnet.cfg which will be installed
-alongside the other perl modules in this distribution. Makefile.PL
-will run Configure in an interactive mode unless these exists a file
-called libnet.cfg in the build directory or Makefile.PL itself is being
-run non-interactively or via cpan, cpanp or cpanm.
-
-If you are on a system which cannot run this script you can create an
-empty file to make Makefile.PL skip running Configure. If you want to
-keep your existing settings and not run interactivly then simply run
-
-  perl Configure -d
-
-before running Makefile.PL.
-
 DOCUMENTATION
 
 See ChangeLog for recent changes.  POD style documentation is included
 in all modules and scripts.  These are normally converted to manual
-pages and installed as part of the "make install" process.  You should
+pages and installed as part of the installation process.  You should
 also be able to use the 'perldoc' utility to extract documentation from
 the module files directly.
 
