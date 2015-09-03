@@ -12,9 +12,8 @@ Revision history for Perl distribution libnet
 
     - Net::FTP::rmdir() has been made more robust by making use of the MLSD
       command in addition to the NLST command since the latter is known not to
-      be processed correctly by some FTP servers.
-
-      [Chris Lindee, CPAN RT#100694]
+      be processed correctly by some FTP servers.  [Chris Lindee, CPAN
+      RT#100694]
 
     - Net::FTP, Net::NNTP, Net::POP3 and Net::SMTP can now restrict domain to
       IPv4 even if IPv6 is available by using the new Domain or Family argument.
@@ -185,8 +184,9 @@ Revision history for Perl distribution libnet
       If no SSL module is available it will work as before, but attempts to use
       the SSL functionality will result in an error message.  If no IPv6 modules
       are available it will just use IPv4 as before.  With IPv6 modules
-      installed one can of course still access IPv4 hosts.  [Steffen Ullrich,
-      CPAN RT#93823]
+      installed one can of course still access IPv4 hosts.
+
+      [Steffen Ullrich, CPAN RT#93823]
 
 1.27 2014-05-30
 
