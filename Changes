@@ -2,6 +2,9 @@ Revision history for Perl distribution libnet
 
 3.08 Development
 
+    - Documented the fact that Net::SMTP::auth() can accept an Authen::SASL
+      object instead of a username and password.  [Jan Viktorin, CPAN RT#106183]
+
     - Simplified specification of INSTALLDIRS: We do not need to check the lower
       bound since we only support Perl 5.8.1 and higher anyway.
 
