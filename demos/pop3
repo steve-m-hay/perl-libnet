@@ -9,8 +9,8 @@ use blib;
 use Getopt::Long;
 use Net::POP3;
 
-my $opt_debug = 0;
-my $opt_user = undef;
+our $opt_debug = 0;
+our $opt_user = undef;
 
 GetOptions(qw(debug user=s));
 
