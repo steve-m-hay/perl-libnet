@@ -279,8 +279,6 @@ sub command {
     if (exists ${*$cmd}{'net_cmd_last_ch'});
 
   if (scalar(@_)) {
-    local $SIG{PIPE} = 'IGNORE' unless $^O eq 'MacOS';
-
     my $str = join(
       " ",
       map {
@@ -292,17 +290,13 @@ sub command {
     $str = $cmd->toascii($str) if $tr;
     $str .= "\015\012";
 
-    my $len = length $str;
-    my $swlen;
-
     $cmd->debug_print(1, $str)
       if ($cmd->debug);
 
-    unless (defined($swlen = syswrite($cmd,$str,$len)) && $swlen == $len) {
-      $cmd->close;
-      $cmd->_set_status_closed;
-      return $cmd;
-    }
+    # though documented to return undef on failure, the legacy behavior
+    # was to turn $cmd even on failure, so this odd construct does that
+    $cmd->_syswrite_with_timeout($str)
+      or return $cmd;
   }
 
   $cmd;
@@ -563,19 +557,11 @@ sub dataend {
 
   $tosend .= ".\015\012";
 
-  local $SIG{PIPE} = 'IGNORE' unless $^O eq 'MacOS';
-
   $cmd->debug_print(1, ".\n")
     if ($cmd->debug);
 
-  my $len = length $tosend;
-  my $w = syswrite($cmd, $tosend, $len);
-  unless (defined($w) && $w == $len)
-  {
-    $cmd->close;
-    $cmd->_set_status_closed;
-    return 0;
-  }
+  $cmd->_syswrite_with_timeout($tosend)
+    or return 0;
 
   delete ${*$cmd}{'net_cmd_last_ch'};
 
