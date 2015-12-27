@@ -2,6 +2,9 @@ Revision history for Perl distribution libnet
 
 3.08 Development
 
+    - Fix a bug introduced in version 1.28 whereby a short write in Net::Cmd
+      would be treated as an error instead of looping.  [David Golden, PR#24]
+
     - Documented the fact that Net::SMTP::auth() can accept an Authen::SASL
       object instead of a username and password.  [Jan Viktorin, CPAN RT#106183]
 
