@@ -294,7 +294,7 @@ sub command {
       if ($cmd->debug);
 
     # though documented to return undef on failure, the legacy behavior
-    # was to turn $cmd even on failure, so this odd construct does that
+    # was to return $cmd even on failure, so this odd construct does that
     $cmd->_syswrite_with_timeout($str)
       or return $cmd;
   }
