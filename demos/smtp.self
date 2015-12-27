@@ -43,9 +43,9 @@ Send the message to C<USERNAME>
 
 =cut
 
-my $opt_debug = undef;
-my $opt_user = undef;
-my $opt_help = undef;
+our $opt_debug = undef;
+our $opt_user = undef;
+our $opt_help = undef;
 GetOptions(qw(debug user=s help));
 
 exec("pod2text $0")
