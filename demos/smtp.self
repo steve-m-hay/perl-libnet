@@ -33,13 +33,13 @@ Display this help text and quit
 
 Send the message to C<USERNAME>
 
+=back
+
 =head1 EXAMPLE
 
     demos/smtp.self  -user foo.bar
 
     demos/smtp.self -debug -user Graham.Barr
-
-=back
 
 =cut
 
@@ -47,7 +47,6 @@ our $opt_debug = undef;
 our $opt_user = undef;
 our $opt_help = undef;
 GetOptions(qw(debug user=s help));
-
 exec("pod2text $0")
     if defined $opt_help;
 
