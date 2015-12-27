@@ -1991,7 +1991,7 @@ It may be difficult for me to reproduce the problem as almost every setup
 is different.
 
 A small script which yields the problem will probably be of help. It would
-also be useful if this script was run with the extra options C<Debug => 1>
+also be useful if this script was run with the extra options C<< Debug => 1 >>
 passed to the constructor, and the output sent with the bug report. If you
 cannot include a small script then please include a Debug trace from a
 run of your program which does yield the problem.
