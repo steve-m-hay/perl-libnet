@@ -263,7 +263,7 @@ sub _set_status_closed {
 sub _is_closed {
   my $cmd = shift;
   if (!defined fileno($cmd)) {
-     $cmd->_set_status_closed;
+     $cmd->_set_status_closed($!);
      return 1;
   }
   return 0;
@@ -346,8 +346,9 @@ sub getline {
     my $select_ret = select($rout = $rin, undef, undef, $timeout);
     if ($select_ret > 0) {
       unless (sysread($cmd, $buf = "", 1024)) {
+        my $err = $!;
         $cmd->close;
-        $cmd->_set_status_closed;
+        $cmd->_set_status_closed($err);
         return;
       }
 
