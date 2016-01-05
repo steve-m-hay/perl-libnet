@@ -1,6 +1,6 @@
 Revision history for Perl distribution libnet
 
-3.08 Development
+3.08 2016-01-05
 
     - Fix a bug introduced in version 1.28 whereby a short write in Net::Cmd
       would be treated as an error instead of looping.  [David Golden, PR#24]
