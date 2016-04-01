@@ -845,10 +845,10 @@ NNTP server, a value of zero will cause all IO operations to block.
 B<Debug> - Enable the printing of debugging information to STDERR
 
 B<Reader> - If the remote server is INN then initially the connection
-will be to nnrpd, by default C<Net::NNTP> will issue a C<MODE READER> command
-so that the remote server becomes innd. If the C<Reader> option is given
+will be to innd, by default C<Net::NNTP> will issue a C<MODE READER> command
+so that the remote server becomes nnrpd. If the C<Reader> option is given
 with a value of zero, then this command will not be sent and the
-connection will be left talking to nnrpd.
+connection will be left talking to innd.
 
 B<LocalAddr> and B<LocalPort> - These parameters are passed directly
 to IO::Socket to allow binding the socket to a specific local address and port.
