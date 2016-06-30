@@ -225,11 +225,15 @@ sub auth {
     if defined $str and length $str;
 
   while (($code = $self->command(@cmd)->response()) == CMD_MORE) {
+    my $str2 = MIME::Base64::decode_base64(($self->message)[0]);
+    $self->debug_print(0, "(decoded) " . $str2 . "\n") if $self->debug;
+
+    $str = $client->client_step($str2);
     @cmd = (
-      MIME::Base64::encode_base64(
-        $client->client_step(MIME::Base64::decode_base64(($self->message)[0])), ''
-      )
+      MIME::Base64::encode_base64($str, '')
     );
+
+    $self->debug_print(1, "(decoded) " . $str . "\n") if $self->debug;
   }
 
   $code == CMD_OK;
