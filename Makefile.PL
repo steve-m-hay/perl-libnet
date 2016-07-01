@@ -120,7 +120,7 @@ MAIN: {
                     prereqs => {
                         runtime => {
                             requires => {
-                                'IO::Socket::IP' => '0.20'
+                                'IO::Socket::IP' => '0.25'
                             # or IO::Socket::INET6 2.62
                             }
                         }
