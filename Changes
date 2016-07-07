@@ -2,7 +2,7 @@ Revision history for Perl distribution libnet
 
 3.09 Development
 
-    - TODO
+    - Provide (and document) a default Net::Cmd::timeout().  [CPAN RT#110978]
 
 3.08 2016-01-05
 
