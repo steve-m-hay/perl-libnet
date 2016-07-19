@@ -2,11 +2,20 @@ Revision history for Perl distribution libnet
 
 3.09 Development
 
-    - Provide (and document) a default Net::Cmd::timeout().  [CPAN RT#110978]
+    - Provided (and documented) a default Net::Cmd::timeout().  [CPAN RT#110978]
+
+    - Increased minimum required version of IO::Socket::IP to 0.25 to hopefully
+      stop t/pop3_ipv6.t hanging.  [CPAN RT#104545]
+
+    - Debug output now includes decoded (from base64) negotiation for SASL.
+      [Philip Prindeville, PR#27]
+
+    - Adapted tests to Test2 revision of Test::More::note()  [James E. Keenan,
+      PR#28]
 
 3.08 2016-01-05
 
-    - Fix a bug introduced in version 1.28 whereby a short write in Net::Cmd
+    - Fixed a bug introduced in version 1.28 whereby a short write in Net::Cmd
       would be treated as an error instead of looping.  [David Golden, PR#24]
 
     - Documented the fact that Net::SMTP::auth() can accept an Authen::SASL
