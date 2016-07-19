@@ -1,6 +1,6 @@
 Revision history for Perl distribution libnet
 
-3.09 Development
+3.09 2016-07-19
 
     - Provided (and documented) a default Net::Cmd::timeout().  [CPAN RT#110978]
 
