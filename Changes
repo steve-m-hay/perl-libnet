@@ -2,7 +2,19 @@ Revision history for Perl distribution libnet
 
 3.10 Development
 
-    - TODO
+    - Removed the default Net::Cmd::timeout() since it inadvertently overrode
+      the timeout() method in whatever IO::Socket::INET-like class sub-classes
+      of Net::Cmd also derive from (at least in cases where Net::Cmd takes
+      precedence in the method resolution, which it should do so that
+      Net::Cmd::getline() overrides IO::Handle::getline()).
+
+      This does cause problems for any Net::Cmd sub-classes that don't provide
+      (by whatever means) the necessary parts of the interface of
+      IO::Socket::INET, but since they mostly seem to anyway (apart from the one
+      that led to the CPAN RT#110978 report!) this is now simply a documented
+      requirement.
+
+      [CPAN RT#116345]
 
 3.09 2016-07-19
 
