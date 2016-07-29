@@ -2,6 +2,9 @@ Revision history for Perl distribution libnet
 
 3.10 Development
 
+    - Remove . from @INC when loading optional modules.  [Tony Cook, Perl
+      RT#127834, CVE-2016-1238]
+
     - Removed the default Net::Cmd::timeout() since it inadvertently overrode
       the timeout() method in whatever IO::Socket::INET-like class sub-classes
       of Net::Cmd also derive from (at least in cases where Net::Cmd takes
