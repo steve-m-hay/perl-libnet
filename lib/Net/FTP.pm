@@ -25,7 +25,7 @@ use Net::Config;
 use Socket;
 use Time::Local;
 
-our $VERSION = '3.10';
+our $VERSION = '3.11';
 
 our $IOCLASS;
 my $family_key;
