@@ -1,6 +1,6 @@
 Revision history for Perl distribution libnet
 
-3.10 Development
+3.10 2016-08-01
 
     - Remove . from @INC when loading optional modules.  [Tony Cook, Perl
       RT#127834, CVE-2016-1238]
