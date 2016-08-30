@@ -2,8 +2,8 @@
 #
 # Versions up to 1.11 Copyright (c) 2000 Graham Barr <gbarr@pobox.com>.
 # All rights reserved.
-# Changes in Version 1.11_01 onwards Copyright (C) 2013-2014 Steve Hay.  All
-# rights reserved.
+# Changes in Version 1.11_01 onwards Copyright (C) 2013-2014, 2016 Steve Hay.
+# All rights reserved.
 # This module is free software; you can redistribute it and/or modify it under
 # the same terms as Perl itself, i.e. under the terms of either the GNU General
 # Public License or the Artistic License, as specified in the F<LICENCE> file.
@@ -335,7 +335,7 @@ Steve Hay E<lt>F<shay@cpan.org>E<gt> is now maintaining libnet as of version
 =head1 COPYRIGHT
 
 Versions up to 1.11 Copyright (c) 1998-2011 Graham Barr. All rights reserved.
-Changes in Version 1.11_01 onwards Copyright (C) 2013-2014 Steve Hay.  All
+Changes in Version 1.11_01 onwards Copyright (C) 2013-2014, 2016 Steve Hay.  All
 rights reserved.
 
 This module is free software; you can redistribute it and/or modify it under the
