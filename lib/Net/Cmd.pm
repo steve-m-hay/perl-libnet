@@ -370,7 +370,7 @@ sub getline {
         if ( defined($timeout) ) {
           redo if ($pending = $timeout - ( time - $initial ) ) > 0;
           $cmd->_set_status_timeout;
-					return;
+          return;
         }
         redo;
       }
