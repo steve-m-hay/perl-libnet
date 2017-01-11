@@ -73,6 +73,30 @@ else {
   printf "ok %d\n",$t++;
 }
 
+if ($data = $ftp->stor('/pub/.hidden.tst')) {
+  my $text = "abc\ndef\nqwe\n";
+  $data->write($text, length $text);
+  $data->close;
+  my @files = $ftp->dir_a;
+  unless (grep { /.hidden.tst/ } @files) {
+    print "not ";
+  }
+  printf "ok %d\n",$t++;
+  @files = $ftp->ls_a;
+  unless (grep { /.hidden.tst/ } @files) {
+    print "not ";
+  }
+  printf "ok %d\n",$t++;
+  $ftp->delete('/pub/.hidden.tst') or print "not ";
+  printf "ok %d\n",$t++;
+}
+else {
+  print "# ",$ftp->message,"\n";
+  printf "ok %d\n",$t++;
+  printf "ok %d\n",$t++;
+  printf "ok %d\n",$t++;
+}
+
 $ftp->quit  or do {
   print STDERR $ftp->message,"\n";
   print "not ";
