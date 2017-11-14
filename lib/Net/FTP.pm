@@ -1,7 +1,7 @@
 # Net::FTP.pm
 #
 # Copyright (C) 1995-2004 Graham Barr.  All rights reserved.
-# Copyright (C) 2013-2016 Steve Hay.  All rights reserved.
+# Copyright (C) 2013-2017 Steve Hay.  All rights reserved.
 # This module is free software; you can redistribute it and/or modify it under
 # the same terms as Perl itself, i.e. under the terms of either the GNU General
 # Public License or the Artistic License, as specified in the F<LICENCE> file.
@@ -2038,7 +2038,7 @@ Roderick Schertler <roderick@gate.net> - for various inputs
 
 Copyright (C) 1995-2004 Graham Barr.  All rights reserved.
 
-Copyright (C) 2013-2016 Steve Hay.  All rights reserved.
+Copyright (C) 2013-2017 Steve Hay.  All rights reserved.
 
 =head1 LICENCE
 
