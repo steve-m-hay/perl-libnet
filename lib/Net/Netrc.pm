@@ -16,7 +16,7 @@ use warnings;
 use Carp;
 use FileHandle;
 
-our $VERSION = "3.11";
+our $VERSION = "3.12";
 
 our $TESTING;
 
