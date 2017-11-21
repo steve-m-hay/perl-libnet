@@ -1,5 +1,5 @@
 # Net::FTP.pm
-#
+# -*- notidy -*-
 # Copyright (C) 1995-2004 Graham Barr.  All rights reserved.
 # Copyright (C) 2013-2017 Steve Hay.  All rights reserved.
 # This module is free software; you can redistribute it and/or modify it under
@@ -135,6 +135,10 @@ sub new {
   ${*$ftp}{'net_ftp_blksize'} = abs($arg{'BlockSize'} || 10240);
 
   ${*$ftp}{'net_ftp_localaddr'} = $arg{'LocalAddr'};
+  ${*$ftp}{'net_ftp_masqaddr'} = $arg{'MasqAddr'} || $ENV{FTP_MASQADDR};
+  ${*$ftp}{'net_ftp_active_ports_start'} = $arg{'ActivePortsStart'} || $ENV{FTP_ACTIVE_PORTS_START};
+  ${*$ftp}{'net_ftp_active_ports_end'} = $arg{'ActivePortsEnd'} || $ENV{FTP_ACTIVE_PORTS_END};
+
   ${*$ftp}{'net_ftp_domain'} = $arg{Domain} || $arg{Family};
 
   ${*$ftp}{'net_ftp_firewall'} = $fire
@@ -890,28 +894,37 @@ sub eprt {
   return _eprt('EPRT',@_);
 }
 
+sub _new_listen_socket {
+    my ($ftp) = @_;
+
+    my %args=(Listen => 1, Timeout => $ftp->timeout, LocalAddr => $ftp->sockhost, $family_key => $ftp->sockdomain );
+
+    my ($activestart, $activeend) = (${*$ftp}{'net_ftp_active_ports_start'}, ${*$ftp}{'net_ftp_active_ports_end'});
+    if ($activestart and $activeend and $activeend >= $activestart) {
+      $args{LocalPort}=$activestart+int rand $activeend-$activestart;
+    }
+
+    if (can_ssl()) {
+      %args=(%args, %{ ${*$ftp}{net_ftp_tlsargs} }, SSL_startHandshake => 0);
+    }
+
+    return $IOCLASS->new(%args);
+}
+
 sub _eprt {
   my ($cmd,$ftp,$port) = @_;
   delete ${*$ftp}{net_ftp_intern_port};
   unless ($port) {
-    my $listen = ${*$ftp}{net_ftp_listen} ||= $IOCLASS->new(
-      Listen    => 1,
-      Timeout   => $ftp->timeout,
-      LocalAddr => $ftp->sockhost,
-      $family_key  => $ftp->sockdomain,
-      can_ssl() ? (
-        %{ ${*$ftp}{net_ftp_tlsargs} },
-        SSL_startHandshake => 0,
-      ):(),
-    );
+    my $listen = ${*$ftp}{net_ftp_listen} ||= $ftp->_new_listen_socket;
     ${*$ftp}{net_ftp_intern_port} = 1;
     my $fam = ($listen->sockdomain == AF_INET) ? 1:2;
+    my $porthost = ${*$ftp}{net_ftp_masqaddr} || $listen->sockhost;
     if ( $cmd eq 'EPRT' || $fam == 2 ) {
-      $port = "|$fam|".$listen->sockhost."|".$listen->sockport."|";
+      $port = "|$fam|".$porthost."|".$listen->sockport."|";
       $cmd = 'EPRT';
     } else {
       my $p = $listen->sockport;
-      $port = join(',',split(m{\.},$listen->sockhost),$p >> 8,$p & 0xff);
+      $port = join(',',split(m{\.},$porthost),$p >> 8,$p & 0xff);
     }
   } elsif (ref($port) eq 'ARRAY') {
     $port = join(',',split(m{\.},@$port[0]),@$port[1] >> 8,@$port[1] & 0xff);
@@ -1059,7 +1072,7 @@ sub _dataconn {
         ) :( %{${*$ftp}{net_ftp_tlsargs}} ),
       ):(),
     ) or return;
-  } elsif (my $listen =  delete ${*$ftp}{net_ftp_listen}) {
+  } elsif (my $listen = delete ${*$ftp}{net_ftp_listen}) {
     $conn = $listen->accept($pkg) or return;
     $conn->timeout($ftp->timeout);
     close($listen);
