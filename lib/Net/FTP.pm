@@ -899,16 +899,24 @@ sub _new_listen_socket {
 
     my %args=(Listen => 1, Timeout => $ftp->timeout, LocalAddr => $ftp->sockhost, $family_key => $ftp->sockdomain );
 
-    my ($activestart, $activeend) = (${*$ftp}{'net_ftp_active_ports_start'}, ${*$ftp}{'net_ftp_active_ports_end'});
-    if ($activestart and $activeend and $activeend >= $activestart) {
-      $args{LocalPort}=$activestart+int rand $activeend-$activestart;
-    }
-
     if (can_ssl()) {
       %args=(%args, %{ ${*$ftp}{net_ftp_tlsargs} }, SSL_startHandshake => 0);
     }
 
-    return $IOCLASS->new(%args);
+    my ($activestart, $activeend) = (${*$ftp}{'net_ftp_active_ports_start'}, ${*$ftp}{'net_ftp_active_ports_end'});
+
+    my $listensocket;
+    for (1..5) {
+      if ($activestart and $activeend and $activeend >= $activestart) {
+        $args{LocalPort}=$activestart+int rand $activeend-$activestart;
+      }
+
+      $listensocket=$IOCLASS->new(%args);
+      last if $listensocket;
+      next if $!{EADDRINUSE}; # retry if optional rand port is used
+    }
+
+    return $listensocket;
 }
 
 sub _eprt {
