@@ -1586,6 +1586,23 @@ This can be used to enforce IPv4 even with L<IO::Socket::IP>
 which would default to IPv6.
 B<Family> is accepted as alternative name for B<Domain>.
 
+B<MasqAddr> - IP Address to be used for PORT/EPRT Commands. Alternativly the
+environment variable FTP_MASQADDR can be set as fallback. This is
+useful when you're behind a NAT Firewall and the external IP is different
+then the internal one, and there is no possibility to use intelligent
+Connection Tracking (e.g. ip_nat_ftp, ip_conntrack_ftp) like on Amazon
+EC2 Firewall.
+
+B<ActivePortsStart>, B<ActivePortsEnd> - A port range that should be used
+for active FTP Connections. Alternativly the environment variables
+FTP_ACTIVE_PORTS_START and FTP_ACTIVE_PORTS_END can be set as fallback.
+Beforehand you have open your Firewall for exactly this port range to your
+computer. A Port between this port range is selected randomly. If the port
+is used already it will retry 5 times to find another free port, otherwise
+transfer will fail with EADDRINUSE. This option is useful, when you need
+to do active transfers e.g. old FTP Servers or unable to change the server
+side firewall configuration for passive transfers.
+
 If the constructor fails undef will be returned and an error message will
 be in $@
 
