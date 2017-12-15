@@ -343,12 +343,13 @@ Returns the remainder of the FQDN after the I<hostname> has been removed.
 
 =head1 AUTHOR
 
-Graham Barr E<lt>F<gbarr@pobox.com>E<gt>.
+Graham Barr E<lt>L<gbarr@pobox.com|mailto:gbarr@pobox.com>E<gt>.
 
-Adapted from Sys::Hostname by David Sundstrom E<lt>F<sunds@asictest.sc.ti.com>E<gt>.
+Adapted from Sys::Hostname by David Sundstrom
+E<lt>L<sunds@asictest.sc.ti.com|mailto:sunds@asictest.sc.ti.com>E<gt>.
 
-Steve Hay E<lt>F<shay@cpan.org>E<gt> is now maintaining libnet as of version
-1.22_02.
+Steve Hay E<lt>L<shay@cpan.org|mailto:shay@cpan.org>E<gt> is now maintaining
+libnet as of version 1.22_02.
 
 =head1 COPYRIGHT
 

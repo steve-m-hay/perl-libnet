@@ -1282,10 +1282,10 @@ L<IO::Socket::SSL>
 
 =head1 AUTHOR
 
-Graham Barr E<lt>F<gbarr@pobox.com>E<gt>.
+Graham Barr E<lt>L<gbarr@pobox.com|mailto:gbarr@pobox.com>E<gt>.
 
-Steve Hay E<lt>F<shay@cpan.org>E<gt> is now maintaining libnet as of version
-1.22_02.
+Steve Hay E<lt>L<shay@cpan.org|mailto:shay@cpan.org>E<gt> is now maintaining
+libnet as of version 1.22_02.
 
 =head1 COPYRIGHT
 

@@ -24,8 +24,8 @@ Copyright (C) 1997-1998 Graham Barr.  All rights reserved.
 This document is free; you can redistribute it and/or modify it
 under the terms of the Artistic License.
 
-Steve Hay E<lt>F<shay@cpan.org>E<gt> is now maintaining libnet as of version
-1.22_02.
+Steve Hay E<lt>L<shay@cpan.org|mailto:shay@cpan.org>E<gt> is now maintaining
+libnet as of version 1.22_02.
 
 =head2 Disclaimer
 
