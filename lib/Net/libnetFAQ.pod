@@ -9,14 +9,14 @@ libnetFAQ - libnet Frequently Asked Questions
 This document is distributed with the libnet distribution, and is also
 available on the libnet web page at
 
-    http://search.cpan.org/dist/libnet/
+L<http://search.cpan.org/dist/libnet/>
 
 =head2 How to contribute to this document
 
 You may report corrections, additions, and suggestions on the
 CPAN Request Tracker at
 
-    http://rt.cpan.org/Public/Bug/Report.html?Queue=libnet
+L<http://rt.cpan.org/Public/Bug/Report.html?Queue=libnet>
 
 =head1 Author and Copyright Information
 
@@ -70,7 +70,7 @@ on any machine that perl runs on.
 The latest libnet release is always on CPAN, you will find it
 in 
 
- http://search.cpan.org/dist/libnet/
+L<http://search.cpan.org/dist/libnet/>
 
 =head1 Using Net::FTP
 

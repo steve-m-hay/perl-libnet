@@ -2008,9 +2008,9 @@ L<Net::Cmd>,
 L<IO::Socket::SSL>
 
 ftp(1), ftpd(8), RFC 959, RFC 2428, RFC 4217
-http://www.ietf.org/rfc/rfc959.txt
-http://www.ietf.org/rfc/rfc2428.txt
-http://www.ietf.org/rfc/rfc4217.txt
+L<http://www.ietf.org/rfc/rfc959.txt>,
+L<http://www.ietf.org/rfc/rfc2428.txt>,
+L<http://www.ietf.org/rfc/rfc4217.txt>
 
 =head1 USE EXAMPLES
 
@@ -2018,7 +2018,7 @@ For an example of the use of Net::FTP see
 
 =over 4
 
-=item http://www.csh.rit.edu/~adam/Progs/
+=item L<http://www.csh.rit.edu/~adam/Progs/>
 
 C<autoftp> is a program that can retrieve, send, or list files via
 the FTP protocol in a non-interactive manner.
