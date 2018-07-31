@@ -9,7 +9,7 @@ libnetFAQ - libnet Frequently Asked Questions
 This document is distributed with the libnet distribution, and is also
 available on the libnet web page at
 
-L<http://search.cpan.org/dist/libnet/>
+L<https://metacpan.org/release/libnet>
 
 =head2 How to contribute to this document
 
@@ -70,7 +70,7 @@ on any machine that perl runs on.
 The latest libnet release is always on CPAN, you will find it
 in 
 
-L<http://search.cpan.org/dist/libnet/>
+L<https://metacpan.org/release/libnet>
 
 =head1 Using Net::FTP
 
