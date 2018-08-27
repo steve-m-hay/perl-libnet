@@ -1601,6 +1601,14 @@ Upgrade existing plain connection to SSL.
 The SSL arguments have to be given in C<new> already because they are needed for
 data connections too.
 
+  $ftp = Net::FTP->new("some.host.name", Debug => 0)
+    or die "Cannot connect to some.host.name: $@";
+  
+  $ftp->starttls
+  
+  $ftp->login("anonymous",'-anonymous@')
+    or die "Cannot login ", $ftp->message;
+
 =item stoptls ()
 
 Downgrade existing SSL connection back to plain.
