@@ -600,6 +600,14 @@ sub date {
     : undef;
 }
 
+sub capabilities {
+  @_ == 1 or croak 'usage: $nntp->capabilities()';
+  my $nntp = shift;
+
+  $nntp->_CAPABILITIES
+    ? $nntp->_description
+    : undef;
+}
 
 ##
 ## Private subroutines
@@ -711,35 +719,36 @@ sub _description {
 ##
 
 
-sub _ARTICLE  { shift->command('ARTICLE',  @_)->response == CMD_OK }
-sub _AUTHINFO { shift->command('AUTHINFO', @_)->response }
-sub _BODY     { shift->command('BODY',     @_)->response == CMD_OK }
-sub _DATE      { shift->command('DATE')->response == CMD_INFO }
-sub _GROUP     { shift->command('GROUP', @_)->response == CMD_OK }
-sub _HEAD      { shift->command('HEAD', @_)->response == CMD_OK }
-sub _HELP      { shift->command('HELP', @_)->response == CMD_INFO }
-sub _IHAVE     { shift->command('IHAVE', @_)->response == CMD_MORE }
-sub _LAST      { shift->command('LAST')->response == CMD_OK }
-sub _LIST      { shift->command('LIST', @_)->response == CMD_OK }
-sub _LISTGROUP { shift->command('LISTGROUP', @_)->response == CMD_OK }
-sub _NEWGROUPS { shift->command('NEWGROUPS', @_)->response == CMD_OK }
-sub _NEWNEWS   { shift->command('NEWNEWS', @_)->response == CMD_OK }
-sub _NEXT      { shift->command('NEXT')->response == CMD_OK }
-sub _POST      { shift->command('POST', @_)->response == CMD_MORE }
-sub _QUIT      { shift->command('QUIT', @_)->response == CMD_OK }
-sub _SLAVE     { shift->command('SLAVE', @_)->response == CMD_OK }
-sub _STARTTLS  { shift->command("STARTTLS")->response() == CMD_MORE }
-sub _STAT      { shift->command('STAT', @_)->response == CMD_OK }
-sub _MODE      { shift->command('MODE', @_)->response == CMD_OK }
-sub _XGTITLE   { shift->command('XGTITLE', @_)->response == CMD_OK }
-sub _XHDR      { shift->command('XHDR', @_)->response == CMD_OK }
-sub _XPAT      { shift->command('XPAT', @_)->response == CMD_OK }
-sub _XPATH     { shift->command('XPATH', @_)->response == CMD_OK }
-sub _XOVER     { shift->command('XOVER', @_)->response == CMD_OK }
-sub _XROVER    { shift->command('XROVER', @_)->response == CMD_OK }
-sub _XTHREAD   { shift->unsupported }
-sub _XSEARCH   { shift->unsupported }
-sub _XINDEX    { shift->unsupported }
+sub _ARTICLE      { shift->command('ARTICLE',  @_)->response == CMD_OK }
+sub _AUTHINFO     { shift->command('AUTHINFO', @_)->response }
+sub _BODY         { shift->command('BODY',     @_)->response == CMD_OK }
+sub _CAPABILITIES { shift->command('CAPABILITIES')->response == CMD_INFO }
+sub _DATE         { shift->command('DATE')->response == CMD_INFO }
+sub _GROUP        { shift->command('GROUP', @_)->response == CMD_OK }
+sub _HEAD         { shift->command('HEAD', @_)->response == CMD_OK }
+sub _HELP         { shift->command('HELP', @_)->response == CMD_INFO }
+sub _IHAVE        { shift->command('IHAVE', @_)->response == CMD_MORE }
+sub _LAST         { shift->command('LAST')->response == CMD_OK }
+sub _LIST         { shift->command('LIST', @_)->response == CMD_OK }
+sub _LISTGROUP    { shift->command('LISTGROUP', @_)->response == CMD_OK }
+sub _NEWGROUPS    { shift->command('NEWGROUPS', @_)->response == CMD_OK }
+sub _NEWNEWS      { shift->command('NEWNEWS', @_)->response == CMD_OK }
+sub _NEXT         { shift->command('NEXT')->response == CMD_OK }
+sub _POST         { shift->command('POST', @_)->response == CMD_MORE }
+sub _QUIT         { shift->command('QUIT', @_)->response == CMD_OK }
+sub _SLAVE        { shift->command('SLAVE', @_)->response == CMD_OK }
+sub _STARTTLS     { shift->command("STARTTLS")->response() == CMD_MORE }
+sub _STAT         { shift->command('STAT', @_)->response == CMD_OK }
+sub _MODE         { shift->command('MODE', @_)->response == CMD_OK }
+sub _XGTITLE      { shift->command('XGTITLE', @_)->response == CMD_OK }
+sub _XHDR         { shift->command('XHDR', @_)->response == CMD_OK }
+sub _XPAT         { shift->command('XPAT', @_)->response == CMD_OK }
+sub _XPATH        { shift->command('XPATH', @_)->response == CMD_OK }
+sub _XOVER        { shift->command('XOVER', @_)->response == CMD_OK }
+sub _XROVER       { shift->command('XROVER', @_)->response == CMD_OK }
+sub _XTHREAD      { shift->unsupported }
+sub _XSEARCH      { shift->unsupported }
+sub _XINDEX       { shift->unsupported }
 
 ##
 ## IO/perl methods
@@ -977,6 +986,12 @@ Returns the message-id of the article.
 
 Returns the date on the remote server. This date will be in a UNIX time
 format (seconds since 1970)
+
+=item capabilities ()
+
+Returns the capabilities of the remote server. See 
+L<Capability Descriptions|https://tools.ietf.org/html/rfc3977#section-3.3.1> for 
+detail description 
 
 =item postok ()
 
