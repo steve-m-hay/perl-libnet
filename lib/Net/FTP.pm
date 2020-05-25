@@ -110,10 +110,13 @@ sub new {
       # use SNI if supported by IO::Socket::SSL
       $pkg->can_client_sni ? (SSL_hostname => $hostname):(),
       # reuse SSL session of control connection in data connections
-      SSL_session_cache => Net::FTP::_SSL_SingleSessionCache->new,
+      SSL_session_cache_size => 10,
+      SSL_session_key => $hostname,
     );
     # user defined SSL arg
     $tlsargs{$_} = $arg{$_} for(grep { m{^SSL_} } keys %arg);
+    $tlsargs{SSL_reuse_ctx} = IO::Socket::SSL::SSL_Context->new(%tlsargs)
+	or return;
 
   } elsif ($arg{SSL}) {
     croak("IO::Socket::SSL >= 2.007 needed for SSL support");
@@ -1397,25 +1400,6 @@ sub _SYST { shift->unsupported(@_) }
 sub _STRU { shift->unsupported(@_) }
 sub _REIN { shift->unsupported(@_) }
 
-{
-  # Session Cache with single entry
-  # used to make sure that we reuse same session for control and data channels
-  package Net::FTP::_SSL_SingleSessionCache;
-  sub new { my $x; return bless \$x,shift }
-  sub add_session {
-    my ($cache,$key,$session) = @_;
-    Net::SSLeay::SESSION_free($$cache) if $$cache;
-    $$cache = $session;
-  }
-  sub get_session {
-    my $cache = shift;
-    return $$cache
-  }
-  sub DESTROY {
-    my $cache = shift;
-    Net::SSLeay::SESSION_free($$cache) if $$cache;
-  }
-}
 
 1;
 
