@@ -1988,7 +1988,7 @@ For an example of the use of Net::FTP see
 
 =over 4
 
-=item L<http://www.csh.rit.edu/~adam/Progs/>
+=item L<https://www.csh.rit.edu/~adam/Progs/>
 
 C<autoftp> is a program that can retrieve, send, or list files via
 the FTP protocol in a non-interactive manner.
@@ -2024,9 +2024,9 @@ L<IO::Socket::SSL>;
 L<ftp(1)>,
 L<ftpd(8)>;
 
-L<http://www.ietf.org/rfc/rfc959.txt>,
-L<http://www.ietf.org/rfc/rfc2428.txt>,
-L<http://www.ietf.org/rfc/rfc4217.txt>.
+L<https://www.ietf.org/rfc/rfc959.txt>,
+L<https://www.ietf.org/rfc/rfc2428.txt>,
+L<https://www.ietf.org/rfc/rfc4217.txt>.
 
 =head1 ACKNOWLEDGEMENTS
 

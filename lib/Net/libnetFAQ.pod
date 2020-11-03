@@ -16,7 +16,7 @@ L<https://metacpan.org/release/libnet>
 You may report corrections, additions, and suggestions on the
 CPAN Request Tracker at
 
-L<http://rt.cpan.org/Public/Bug/Report.html?Queue=libnet>
+L<https://rt.cpan.org/Public/Bug/Report.html?Queue=libnet>
 
 =head1 Author and Copyright Information
 
