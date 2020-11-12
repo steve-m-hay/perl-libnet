@@ -163,6 +163,7 @@ C<inet_daytime>.
 
 I<None>.
 
+=back
 
 =head1 KNOWN BUGS
 
