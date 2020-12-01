@@ -596,7 +596,7 @@ sub date {
 
   $nntp->_DATE
     && $nntp->message =~ /(\d{4})(\d\d)(\d\d)(\d\d)(\d\d)(\d\d)/
-    ? timegm($6, $5, $4, $3, $2 - 1, $1 - 1900)
+    ? timegm($6, $5, $4, $3, $2 - 1, $1)
     : undef;
 }
 

@@ -265,7 +265,7 @@ sub mdtm {
 
   $ftp->_MDTM($file)
     && $ftp->message =~ /((\d\d)(\d\d\d?))(\d\d)(\d\d)(\d\d)(\d\d)(\d\d)/
-    ? timegm($8, $7, $6, $5, $4 - 1, $2 eq '19' ? $3 : ($1 - 1900))
+    ? timegm($8, $7, $6, $5, $4 - 1, $2 eq '19' ? ($3 + 1900) : $1)
     : undef;
 }
 
