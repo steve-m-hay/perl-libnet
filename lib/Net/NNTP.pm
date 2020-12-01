@@ -96,7 +96,6 @@ sub new {
     if ($arg{SSL}) {
       Net::NNTP::_SSL->start_SSL($obj,%arg) or next;
     }
-    last:
   }
 
   return
