@@ -116,7 +116,7 @@ sub new {
     # user defined SSL arg
     $tlsargs{$_} = $arg{$_} for(grep { m{^SSL_} } keys %arg);
     $tlsargs{SSL_reuse_ctx} = IO::Socket::SSL::SSL_Context->new(%tlsargs)
-	or return;
+      or return;
 
   } elsif ($arg{SSL}) {
     croak("IO::Socket::SSL >= 2.007 needed for SSL support");
