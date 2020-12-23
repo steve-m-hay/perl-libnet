@@ -1,6 +1,6 @@
 Revision history for Perl distribution libnet
 
-3.13 Development
+3.13 2020-12-23
 
     - Revert "Fix EINTR interruption in sysread for getline method."  [Mario
       Paumann, CPAN RT#133912]
