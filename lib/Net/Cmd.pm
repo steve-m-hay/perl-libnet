@@ -335,19 +335,15 @@ sub getline {
   my $rin = "";
   vec($rin, $fd, 1) = 1;
 
-  my $timeout = $cmd->timeout || undef;
-  my $initial = time;
-  my $pending = $timeout;
-
   my $buf;
 
   until (scalar(@{${*$cmd}{'net_cmd_lines'}})) {
+    my $timeout = $cmd->timeout || undef;
     my $rout;
 
-    my $select_ret = select($rout = $rin, undef, undef, $pending);
-    if (defined $select_ret and $select_ret > 0) {
-      my $r = sysread($cmd, $buf = "", 1024);
-      if (! defined($r) ) {
+    my $select_ret = select($rout = $rin, undef, undef, $timeout);
+    if ($select_ret > 0) {
+      unless (sysread($cmd, $buf = "", 1024)) {
         my $err = $!;
         $cmd->close;
         $cmd->_set_status_closed($err);
@@ -362,20 +358,6 @@ sub getline {
 
       push(@{${*$cmd}{'net_cmd_lines'}}, map {"$_\n"} @buf);
 
-    }
-    elsif (defined $select_ret && $select_ret == -1) {
-      if ( $! == EINTR ) {
-        if ( defined($timeout) ) {
-          redo if ($pending = $timeout - ( time - $initial ) ) > 0;
-          $cmd->_set_status_timeout;
-          return;
-        }
-        redo;
-      }
-      my $err = $!;
-      $cmd->close;
-      $cmd->_set_status_closed($err);
-      return;
     }
     else {
       $cmd->_set_status_timeout;
