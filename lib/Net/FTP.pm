@@ -1052,14 +1052,7 @@ sub _dataconn {
       Timeout   => $ftp->timeout,
       can_ssl() ? (
         SSL_startHandshake => 0,
-        $ftp->is_SSL ? (
-          SSL_reuse_ctx => $ftp,
-          SSL_verifycn_name => ${*$ftp}{net_ftp_tlsargs}{SSL_verifycn_name},
-          # This will cause the use of SNI if supported by IO::Socket::SSL.
-          $ftp->can_client_sni ? (
-            SSL_hostname  => ${*$ftp}{net_ftp_tlsargs}{SSL_hostname}
-          ):(),
-        ) :( %{${*$ftp}{net_ftp_tlsargs}} ),
+        %{${*$ftp}{net_ftp_tlsargs}},
       ):(),
     ) or return;
   } elsif (my $listen =  delete ${*$ftp}{net_ftp_listen}) {
