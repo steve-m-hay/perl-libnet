@@ -337,6 +337,12 @@ sub mail {
 
       if (defined($v = delete $opt{Bits})) {
         if ($v eq "8") {
+          if (exists $esmtp->{'SMTPUTF8'}) {
+            $opts .= " SMTPUTF8";
+          }
+          else {
+            carp 'Net::SMTP::mail: SMTPUTF8 option not supported by host';
+          }
           if (exists $esmtp->{'8BITMIME'}) {
             $opts .= " BODY=8BITMIME";
           }
@@ -829,6 +835,10 @@ in hash like fashion, using key and value pairs.  Possible options are:
  ENVID       => <ENVID>     # similar to Envelope, but expects argument encoded
  XVERP       => 1
  AUTH        => <submitter> # encoded address according to RFC 2554
+
+If C<Bits=8> parameter are used it refers to SMTPUTF8 (RFC6531: enable UTF-8 in whole
+message) and 8BITMIME (RFC6152: 8-bit MIME message) if server supports these.
+Then C<$address> must be encoded by the caller to octets, e.g. by using the Encode module's C<encode()> function.
 
 The C<Return> and C<Envelope> parameters are used for DSN (Delivery
 Status Notification).
