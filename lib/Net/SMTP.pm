@@ -216,6 +216,13 @@ sub auth {
   # todo that we would really need to change the ISA hierarchy
   # so we don't inherit from IO::Socket, but instead hold it in an attribute
 
+  # DIGEST-MD5 can support integrity and/or confidentiality protection
+  # over the socket traffic (auth-int and auth-conf) which we do not
+  # support here for now.  To disable them, set maxssf=minssf=0.
+
+  $client->property('maxssf' => 0, 'minssf' => 0)
+    if ($client->mechanism eq 'DIGEST-MD5');
+
   my @cmd = ("AUTH", $client->mechanism);
   my $code;
 
