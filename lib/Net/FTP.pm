@@ -66,7 +66,7 @@ use constant TELNET_IAC => 255;
 use constant TELNET_IP  => 244;
 use constant TELNET_DM  => 242;
 
-use constant EBCDIC => $^O eq 'os390';
+use constant EBCDIC => ord 'A' == 193;
 
 sub new {
   my $pkg = shift;
