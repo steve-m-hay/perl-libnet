@@ -1959,19 +1959,6 @@ Reinitialize the connection, flushing all I/O and account information.
 
 =back
 
-=head1 EXAMPLES
-
-For an example of the use of Net::FTP see
-
-=over 4
-
-=item L<https://www.csh.rit.edu/~adam/Progs/>
-
-C<autoftp> is a program that can retrieve, send, or list files via
-the FTP protocol in a non-interactive manner.
-
-=back
-
 =head1 EXPORTS
 
 I<None>.
