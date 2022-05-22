@@ -1,7 +1,7 @@
 # Net::FTP.pm
 #
 # Copyright (C) 1995-2004 Graham Barr.  All rights reserved.
-# Copyright (C) 2013-2017, 2020 Steve Hay.  All rights reserved.
+# Copyright (C) 2013-2017, 2020, 2022 Steve Hay.  All rights reserved.
 # This module is free software; you can redistribute it and/or modify it under
 # the same terms as Perl itself, i.e. under the terms of either the GNU General
 # Public License or the Artistic License, as specified in the F<LICENCE> file.
@@ -2014,7 +2014,7 @@ libnet as of version 1.22_02.
 
 Copyright (C) 1995-2004 Graham Barr.  All rights reserved.
 
-Copyright (C) 2013-2017, 2020 Steve Hay.  All rights reserved.
+Copyright (C) 2013-2017, 2020, 2022 Steve Hay.  All rights reserved.
 
 =head1 LICENCE
 
@@ -2028,7 +2028,7 @@ Version 3.14
 
 =head1 DATE
 
-TODO
+22 May 2022
 
 =head1 HISTORY
 
