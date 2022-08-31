@@ -648,7 +648,7 @@ Net::Cmd - Network Command class (as used by FTP, SMTP etc)
 
     use Net::Cmd;
 
-    @ISA = qw(Net::Cmd);
+    our @ISA = qw(Net::Cmd);
 
 =head1 DESCRIPTION
 

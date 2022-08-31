@@ -785,14 +785,14 @@ Net::NNTP - NNTP Client class
 
     use Net::NNTP;
 
-    $nntp = Net::NNTP->new("some.host.name");
+    my $nntp = Net::NNTP->new("some.host.name");
     $nntp->quit;
 
-    # start with SSL, e.g. nntps
-    $nntp = Net::NNTP->new("some.host.name", SSL => 1);
+    # Start with SSL, e.g. NNTPS
+    my $nntp = Net::NNTP->new("some.host.name", SSL => 1);
 
-    # start with plain and upgrade to SSL
-    $nntp = Net::NNTP->new("some.host.name");
+    # Start with plain and upgrade to SSL
+    my $nntp = Net::NNTP->new("some.host.name");
     $nntp->starttls;
 
 

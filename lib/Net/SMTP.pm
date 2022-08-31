@@ -648,8 +648,8 @@ Net::SMTP - Simple Mail Transfer Protocol Client
     use Net::SMTP;
 
     # Constructors
-    $smtp = Net::SMTP->new('mailhost');
-    $smtp = Net::SMTP->new('mailhost', Timeout => 60);
+    my $smtp = Net::SMTP->new('mailhost');
+    my $smtp = Net::SMTP->new('mailhost', Timeout => 60);
 
 =head1 DESCRIPTION
 
