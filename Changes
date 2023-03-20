@@ -2,7 +2,8 @@ Revision history for Perl distribution libnet
 
 3.15 Development
 
-    - TODO
+    - Release for updating bleadperl to avoid cmp_version.t trouble.  No code
+      changes.
 
 3.14 2022-05-22
 
