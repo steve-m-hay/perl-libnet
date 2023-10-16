@@ -188,9 +188,24 @@ sub set_status {
   1;
 }
 
+# The default encode/decode methods
+sub encode {
+  my ($cmd, $text, $len) = @_;
+
+  $text;
+}
+
+
+sub decode {
+  my ($cmd, $text, $len) = @_;
+
+  $text;
+}
+
+
 sub _syswrite_with_timeout {
   my $cmd = shift;
-  my $line = shift;
+  my $line = $cmd->encode($_[0], length($_[0]));
 
   my $len    = length($line);
   my $offset = 0;
@@ -351,6 +366,8 @@ sub getline {
       }
 
       substr($buf, 0, 0) = $partial;    ## prepend from last sysread
+
+      $buf = $cmd->decode($buf, length($buf));  ## decode it
 
       my @buf = split(/\015?\012/, $buf, -1);    ## break into lines
 
