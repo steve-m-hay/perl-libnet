@@ -932,7 +932,7 @@ sub dir { shift->_list_cmd("LIST", @_); }
 sub pasv {
   my $ftp = shift;
   @_ and croak 'usage: $ftp->port()';
-  return $ftp->epsv if $ftp->sockdomain != AF_INET;
+  return $ftp->epsv if $ftp->sockdomain != AF_INET || $ftp->is_SSL;
   delete ${*$ftp}{net_ftp_intern_port};
 
   if ( $ftp->_PASV &&
