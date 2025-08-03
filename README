@@ -46,7 +46,7 @@ FEEDBACK
     include a transcript of a run.)
 
     Currently active requests on the CPAN Request Tracker can be viewed at
-    <https://rt.cpan.org/Public/Dist/Display.html?Status=Active;Queue=libnet>.
+    <https://rt.cpan.org/Public/Dist/Display.html?Queue=libnet>.
 
     Please test this distribution.  See CPAN Testers Reports at
     <https://www.cpantesters.org/> for details of how to get involved.
