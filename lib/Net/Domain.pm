@@ -235,13 +235,15 @@ sub domainname {
   # Assumption: If the host name does not contain a period
   # and the domain name does, then assume that they are correct
   # this helps to eliminate calls to gethostbyname, and therefore
-  # eliminate DNS lookups
+  # eliminate DNS lookups. Also ensure that the domain name is not
+  # starting with a period, since it will lead to an invalid FQDN.
 
   return $fqdn = $host . "." . $domain
     if (defined $host
     and defined $domain
     and $host !~ /\./
-    and $domain =~ /\./);
+    and $domain =~ /\./
+    and $domain !~ /^\./);
 
   # For hosts that have no name, just an IP address
   return $fqdn = $host if defined $host and $host =~ /^\d+(\.\d+){3}$/;
