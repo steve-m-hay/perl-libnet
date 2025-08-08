@@ -122,6 +122,8 @@ sub new {
       return;
     }
   }
+  # {Hello} will be reused when a security layer is negotiated after the EHLO
+  ${*$obj}{'net_smtp_hello'} = $arg{Hello} || "";
 
   $obj;
 }
@@ -155,6 +157,34 @@ sub etrn {
   my $self = shift;
   defined($self->supports('ETRN', 500, ["Command unknown: 'ETRN'"]))
     && $self->_ETRN(@_);
+}
+
+
+# Overload encode method when Authen::SASL is available
+sub encode {
+  my ($self, $text, $len) = @_;
+  my $sasl = ${*$self}{'net_smtp_sasl'};
+
+  if ($sasl and $sasl->can('encode')) {
+    my $ret = $sasl->encode($text, $len);
+
+    # Add the leading 4 octects for the length (Sec 3.7, RFC 4422)
+    pack('N', length($ret)) . $ret;
+  } else {
+    $self->SUPER::encode($text, $len);
+  }
+}
+
+
+# Overload decode method when Authen::SASL is available
+sub decode {
+  my ($self, $text, $len) = @_;
+  my $sasl = ${*$self}{'net_smtp_sasl'};
+
+  # Remove the leading 4 octects for the length (Sec 3.7, RFC 4422)
+  return ($sasl and $sasl->can('decode'))
+    ? $sasl->decode(substr($text, 4), unpack('N', substr($text, 0, 4)))
+    : $self->SUPER::decode($text, $len);
 }
 
 
@@ -232,6 +262,27 @@ sub auth {
     );
 
     $self->debug_print(1, "(decoded) " . $str . "\n") if $self->debug;
+  }
+
+  # Some mechanisms in Authen::SASL offer additional security layers
+  # for integrity and/or confidentiality and define encode() and
+  # decode() methods.  To support them, store the Authen::SASL
+  # object in {net_smtp_sasl}.
+  #
+  ${*$self}{'net_smtp_sasl'} = $sasl->{conn};
+
+  $self->debug_print(0, "sasl->conn is installed\n");
+
+  # When an additional security layer is negotiated, the client SHOULD send
+  # an EHLO again (Sec. 4, RFC 4954)
+  #
+  if ($sasl->{conn}->can('encode') or $sasl->{conn}->can('decode')) {
+    unless ($self->hello(${*$self}{'net_smtp_hello'})) {
+      my $err = ref($self) . ": " . $self->code . " " . $self->message;
+      $self->close();
+      $@ = $err;
+      return;
+    }
   }
 
   $code == CMD_OK;
