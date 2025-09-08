@@ -209,9 +209,9 @@ Net::Netrc - OO interface to users netrc file
 
     use Net::Netrc;
 
-    $mach = Net::Netrc->lookup('some.machine');
-    $login = $mach->login;
-    ($login, $password, $account) = $mach->lpa;
+    my $mach = Net::Netrc->lookup('some.machine');
+    my $login = $mach->login;
+    my ($login, $password, $account) = $mach->lpa;
 
 =head1 DESCRIPTION
 

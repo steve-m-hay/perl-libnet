@@ -1406,7 +1406,7 @@ Net::FTP - FTP Client class
 
     use Net::FTP;
 
-    $ftp = Net::FTP->new("some.host.name", Debug => 0)
+    my $ftp = Net::FTP->new("some.host.name", Debug => 0)
       or die "Cannot connect to some.host.name: $@";
 
     $ftp->login("anonymous",'-anonymous@')

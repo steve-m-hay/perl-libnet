@@ -605,9 +605,9 @@ Net::POP3 - Post Office Protocol 3 Client class (RFC1939)
     use Net::POP3;
 
     # Constructors
-    $pop = Net::POP3->new('pop3host');
-    $pop = Net::POP3->new('pop3host', Timeout => 60);
-    $pop = Net::POP3->new('pop3host', SSL => 1, Timeout => 60);
+    my $pop = Net::POP3->new('pop3host');
+    my $pop = Net::POP3->new('pop3host', Timeout => 60);
+    my $pop = Net::POP3->new('pop3host', SSL => 1, Timeout => 60);
 
     if ($pop->login($username, $password) > 0) {
       my $msgnums = $pop->list; # hashref of msgnum => size
