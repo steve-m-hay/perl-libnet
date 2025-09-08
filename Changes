@@ -20,6 +20,8 @@ Revision history for Perl distribution libnet
     - Fix TLS session reuse for dataconn with TLS 1.3 when using passive mode.
       [Steffen Ullrich, PR#41]
 
+    - Make Net::SMPT work with SMTPUTF8 [Vladimir Varlamov]
+
 3.13 2020-12-23
 
     - Revert "Fix EINTR interruption in sysread for getline method."  [Mario
