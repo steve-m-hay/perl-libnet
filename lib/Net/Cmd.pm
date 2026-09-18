@@ -38,6 +38,9 @@ use constant CMD_ERROR   => 5;
 use constant CMD_PENDING => 0;
 
 use constant DEF_REPLY_CODE => 421;
+use constant MAX_PARTIAL_BYTES  => 1024 * 1024;      # 1 MiB
+use constant MAX_RESP_BYTES     => 8 * 1024 * 1024;  # 8 MiB
+use constant MAX_DOTREAD_BYTES  => 32 * 1024 * 1024; # 32 MiB
 
 my %debug = ();
 
@@ -356,6 +359,12 @@ sub getline {
 
       $partial = pop @buf;
 
+      if (length($partial) > MAX_PARTIAL_BYTES) {
+        $cmd->close;
+        $cmd->set_status($cmd->DEF_REPLY_CODE, "[Net::Cmd] Response line too long");
+        return;
+      }
+
       push(@{${*$cmd}{'net_cmd_lines'}}, map {"$_\n"} @buf);
 
     }
@@ -398,6 +407,8 @@ sub response {
 
   $cmd->set_status($cmd->DEF_REPLY_CODE, undef); # initialize the response
 
+  my $resp_bytes = 0;
+
   while (1) {
     my $str = $cmd->getline();
 
@@ -418,6 +429,12 @@ sub response {
     ${*$cmd}{'net_cmd_code'} = $code;
 
     push(@{${*$cmd}{'net_cmd_resp'}}, $str);
+    $resp_bytes += length($str);
+    if ($resp_bytes > MAX_RESP_BYTES) {
+      $cmd->close;
+      $cmd->set_status($cmd->DEF_REPLY_CODE, "[Net::Cmd] Response too large");
+      return CMD_ERROR;
+    }
 
     last unless ($more);
   }
@@ -431,6 +448,7 @@ sub read_until_dot {
   my $cmd = shift;
   my $fh  = shift;
   my $arr = [];
+  my $total = 0;
 
   while (1) {
     my $str = $cmd->getline() or return;
@@ -447,6 +465,12 @@ sub read_until_dot {
     }
     else {
       push(@$arr, $str);
+      $total += length($str);
+      if ($total > MAX_DOTREAD_BYTES) {
+        $cmd->close;
+        $cmd->set_status($cmd->DEF_REPLY_CODE, "[Net::Cmd] Dot-read too large");
+        return;
+      }
     }
   }
 
