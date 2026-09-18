@@ -38,9 +38,6 @@ use constant CMD_ERROR   => 5;
 use constant CMD_PENDING => 0;
 
 use constant DEF_REPLY_CODE => 421;
-use constant MAX_PARTIAL_BYTES  => 1024 * 1024;      # 1 MiB
-use constant MAX_RESP_BYTES     => 8 * 1024 * 1024;  # 8 MiB
-use constant MAX_DOTREAD_BYTES  => 32 * 1024 * 1024; # 32 MiB
 
 my %debug = ();
 
@@ -261,6 +258,42 @@ sub _set_status_closed {
     . "(): unexpected EOF on command channel: $err") if $cmd->debug;
 }
 
+# Max length of an incomplete response line
+sub max_partial_bytes  { 1024 * 1024      }    # 1 MiB
+
+# Max total size of a multiline response
+sub max_resp_bytes     { 8 * 1024 * 1024  }    # 8 MiB
+
+# Max total size of a dot-terminated body
+sub max_dotread_bytes  { 32 * 1024 * 1024 }    # 32 MiB
+
+sub _set_status_line_too_long {
+  my $cmd = shift;
+  my $pkg = ref($cmd) || $cmd;
+
+  $cmd->set_status($cmd->DEF_REPLY_CODE, "[$pkg] Response line too long");
+  carp(ref($cmd) . ": " . (caller(1))[3]
+    . "(): response line too long") if $cmd->debug;
+}
+
+sub _set_status_resp_too_large {
+  my $cmd = shift;
+  my $pkg = ref($cmd) || $cmd;
+
+  $cmd->set_status($cmd->DEF_REPLY_CODE, "[$pkg] Response too large");
+  carp(ref($cmd) . ": " . (caller(1))[3]
+    . "(): response too large") if $cmd->debug;
+}
+
+sub _set_status_dotread_too_large {
+  my $cmd = shift;
+  my $pkg = ref($cmd) || $cmd;
+
+  $cmd->set_status($cmd->DEF_REPLY_CODE, "[$pkg] Dot-read too large");
+  carp(ref($cmd) . ": " . (caller(1))[3]
+    . "(): dot-read too large") if $cmd->debug;
+}
+
 sub _is_closed {
   my $cmd = shift;
   if (!defined fileno($cmd)) {
@@ -353,9 +386,9 @@ sub getline {
         return;
       }
 
-      if (length($partial) + length($buf) > MAX_PARTIAL_BYTES) {
+      if (length($partial) + length($buf) > $cmd->max_partial_bytes) {
         $cmd->close;
-        $cmd->set_status($cmd->DEF_REPLY_CODE, "[Net::Cmd] Response line too long");
+        $cmd->_set_status_line_too_long;
         return;
       }
 
@@ -430,9 +463,9 @@ sub response {
 
     push(@{${*$cmd}{'net_cmd_resp'}}, $str);
     $resp_bytes += length($str);
-    if ($resp_bytes > MAX_RESP_BYTES) {
+    if ($resp_bytes > $cmd->max_resp_bytes) {
       $cmd->close;
-      $cmd->set_status($cmd->DEF_REPLY_CODE, "[Net::Cmd] Response too large");
+      $cmd->_set_status_resp_too_large;
       return CMD_ERROR;
     }
 
@@ -466,9 +499,9 @@ sub read_until_dot {
     else {
       push(@$arr, $str);
       $total += length($str);
-      if ($total > MAX_DOTREAD_BYTES) {
+      if ($total > $cmd->max_dotread_bytes) {
         $cmd->close;
-        $cmd->set_status($cmd->DEF_REPLY_CODE, "[Net::Cmd] Dot-read too large");
+        $cmd->_set_status_dotread_too_large;
         return;
       }
     }
@@ -829,6 +862,27 @@ the server after issuing a command that expects data to be written.
 
 See the Net::POP3 and Net::SMTP modules for examples of this.
 
+=item C<max_partial_bytes()>
+
+Returns the maximum number of bytes that an incomplete response line (data
+received without a terminating CRLF) may accumulate before the connection
+is closed with an error. The default is 1 MiB. Override this method in a
+subclass to change the limit.
+
+=item C<max_resp_bytes()>
+
+Returns the maximum number of bytes that a multiline response (NNN-...
+continuation lines accumulated by C<response()>) may occupy before the
+connection is closed with an error. The default is 8 MiB. Override this
+method in a subclass to change the limit.
+
+=item C<max_dotread_bytes()>
+
+Returns the maximum number of bytes that a dot-terminated body read (data
+accumulated by C<read_until_dot()> when no filehandle is supplied) may
+occupy before the connection is closed with an error. The default is
+32 MiB. Override this method in a subclass to change the limit.
+
 =back
 
 =head2 Pseudo Responses
@@ -866,6 +920,33 @@ If there is a read or write timeout C<code()> will return "421"
 that subclassed C<Net::Cmd>). The _set_status_timeout() method
 can be overridden to set a different message (by calling set_status())
 or otherwise trap this error.
+
+=item Response line too long
+
+If an incomplete response line (data received without a terminating CRLF)
+exceeds the C<max_partial_bytes()> limit, C<code()> will return "421" and
+C<message()> will return "[$pkg] Response line too long" (where $pkg is
+the name of the class that subclassed C<Net::Cmd>). The
+C<_set_status_line_too_long()> method can be overridden to set a different
+message or otherwise trap this error.
+
+=item Response too large
+
+If the accumulated bytes of a multiline response (NNN-... continuation
+lines) exceed the C<max_resp_bytes()> limit, C<code()> will return "421"
+and C<message()> will return "[$pkg] Response too large" (where $pkg is
+the name of the class that subclassed C<Net::Cmd>). The
+C<_set_status_resp_too_large()> method can be overridden to set a different
+message or otherwise trap this error.
+
+=item Dot-read body too large
+
+If the accumulated bytes of a dot-terminated body read (when no filehandle
+is supplied) exceed the C<max_dotread_bytes()> limit, C<code()> will return
+"421" and C<message()> will return "[$pkg] Dot-read too large" (where $pkg
+is the name of the class that subclassed C<Net::Cmd>). The
+C<_set_status_dotread_too_large()> method can be overridden to set a
+different message or otherwise trap this error.
 
 =back
 
