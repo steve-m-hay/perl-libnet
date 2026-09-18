@@ -353,17 +353,17 @@ sub getline {
         return;
       }
 
+      if (length($partial) + length($buf) > MAX_PARTIAL_BYTES) {
+        $cmd->close;
+        $cmd->set_status($cmd->DEF_REPLY_CODE, "[Net::Cmd] Response line too long");
+        return;
+      }
+
       substr($buf, 0, 0) = $partial;    ## prepend from last sysread
 
       my @buf = split(/\015?\012/, $buf, -1);    ## break into lines
 
       $partial = pop @buf;
-
-      if (length($partial) > MAX_PARTIAL_BYTES) {
-        $cmd->close;
-        $cmd->set_status($cmd->DEF_REPLY_CODE, "[Net::Cmd] Response line too long");
-        return;
-      }
 
       push(@{${*$cmd}{'net_cmd_lines'}}, map {"$_\n"} @buf);
 
