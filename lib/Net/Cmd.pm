@@ -1,7 +1,7 @@
 # Net::Cmd.pm
 #
 # Copyright (C) 1995-2006 Graham Barr.  All rights reserved.
-# Copyright (C) 2013-2016, 2020, 2022 Steve Hay.  All rights reserved.
+# Copyright (C) 2013-2016, 2020, 2022, 2026 Steve Hay.  All rights reserved.
 # This module is free software; you can redistribute it and/or modify it under
 # the same terms as Perl itself, i.e. under the terms of either the GNU General
 # Public License or the Artistic License, as specified in the F<LICENCE> file.
@@ -992,7 +992,7 @@ libnet as of version 1.22_02.
 
 Copyright (C) 1995-2006 Graham Barr.  All rights reserved.
 
-Copyright (C) 2013-2016, 2020, 2022 Steve Hay.  All rights reserved.
+Copyright (C) 2013-2016, 2020, 2022, 2026 Steve Hay.  All rights reserved.
 
 =head1 LICENCE
 
@@ -1006,7 +1006,7 @@ Version 3.16
 
 =head1 DATE
 
-TODO
+24 Oct 2026
 
 =head1 HISTORY
 
