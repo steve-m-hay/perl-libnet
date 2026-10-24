@@ -1,5 +1,9 @@
 Revision history for Perl distribution libnet
 
+3.17 Development
+
+    - TODO
+
 3.16 2026-10-24
 
     - Fix unbounded response buffering vulnerabilities in Net::Cmd.  [Jitka
